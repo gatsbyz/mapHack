@@ -11,4 +11,10 @@ function cheatsService($http, $stateParams) {
     return $http
     	.get('/api/map');
   }
+
+  factory.createCheat = function(newCheat) {
+  	return $http
+  		.post('/api/map', newCheat)
+  }
+  return factory;
 }

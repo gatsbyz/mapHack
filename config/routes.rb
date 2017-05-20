@@ -4,8 +4,12 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
+    namespace :api do
+    	get '/map' => 'cheats#index'
+    	post '/map' => 'cheats#create'
+    	
+    end
+ 
   	root to: 'client#index'
 	get '*path', to: 'client#index'
 end
