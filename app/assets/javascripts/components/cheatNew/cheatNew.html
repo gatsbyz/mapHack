@@ -1,0 +1,19 @@
+<input id="pac-input" class="controls" type="text" placeholder="Search Box"> 
+
+<div id="map"></div>
+<button ng-click="$ctrl.clearOverlays()">Reset Markers</button>
+
+<h1>New Cheat</h1>
+
+<form>
+  <label>Details</label>
+  <textarea ng-model="$ctrl.cheat.details"></textarea>
+  <br/>
+  <label>From</label>
+  <input type="checkbox" ng-model="$ctrl.cheat.from"></input>
+  <br/>
+  <label>To</label>
+  <input type="checkbox" ng-model="$ctrl.cheat.to">
+  <br/>
+  <button ng-click="$ctrl.saveCheat()">Hack</button>
+<form>

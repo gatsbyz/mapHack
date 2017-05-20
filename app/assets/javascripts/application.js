@@ -28,6 +28,10 @@ angular
       .state('mapIndex', {
         url: '/map',
         component: 'mapIndex'
+      })
+      .state('cheatNew', {
+        url: '/cheat',
+        component: 'cheatNew'
       });
 
     // default fall back route
