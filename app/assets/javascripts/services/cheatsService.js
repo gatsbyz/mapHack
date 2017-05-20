@@ -14,7 +14,7 @@ function cheatsService($http, $stateParams) {
 
   factory.createCheat = function(newCheat) {
     return $http
-    	.post('/api/map', newCheat);
+    	.post('/api/cheat', newCheat);
   }
 
   return factory;
