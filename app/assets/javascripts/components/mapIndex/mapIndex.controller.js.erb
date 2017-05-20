@@ -2,11 +2,26 @@ angular
   .module('mapHack')
   .controller('MapIndexController', MapIndexController);
 
-MapIndexController.$inject = ['$http'];
+MapIndexController.$inject = ['$http', 'cheatsService'];
 
 
-function MapIndexController($http) {
+function MapIndexController($http, cheatsService) {
  	var vm = this;
+
+    vm.cheats = [];
+
+    onLoad();
+
+    function onLoad() {
+
+        cheatsService
+            .getCheats()
+            .then(function(res){
+                console.log(res)
+                vm.cheats = res.data.cheats;
+        });
+
+    }
 
 	initAutocomplete();
 
@@ -42,6 +57,12 @@ function MapIndexController($http) {
               $("#error").append("Unable to retrieve your route<br />");
           }
         );
+    }
+
+    function drawCheats() {
+        vm.cheats.forEach(function(element,index) {
+
+        });
     }
 
     $(document).ready(function() {
