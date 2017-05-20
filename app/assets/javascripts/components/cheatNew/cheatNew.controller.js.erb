@@ -2,9 +2,9 @@ angular
     .module('mapHack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$http'];
+CheatNewController.$inject = ['$http', 'cheatsService'];
 
-function CheatNewController($http) {
+function CheatNewController($http, cheatsService) {
  	var vm = this;
 
     vm.cheat = {
@@ -111,7 +111,6 @@ function CheatNewController($http) {
     }
 
     function saveCheat() {
-        console.log(vm.cheat);
 
         markersArray.forEach(function(marker,index) {
             if (index == 0) {
@@ -122,6 +121,8 @@ function CheatNewController($http) {
                 vm.cheat.end_point_lng = marker.position.lng
             } 
         });
+
+        console.log(vm.cheat);
 
         cheatsService
           .createCheat(vm.cheat)

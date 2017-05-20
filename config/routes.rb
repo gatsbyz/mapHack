@@ -6,8 +6,7 @@ Rails.application.routes.draw do
 
     namespace :api do
     	get '/map' => 'cheats#index'
-    	post '/map' => 'cheats#create'
-    	
+    	post '/cheat' => 'cheats#create'
     end
  
   	root to: 'client#index'
