@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyText
+  start_point_lat: 1
+  start_point_long: 1
+  end_point_lat: 1
+  end_point_long: 1
+  user_id: 1
+  raiting: 1
+
+two:
+  description: MyText
+  start_point_lat: 1
+  start_point_long: 1
+  end_point_lat: 1
+  end_point_long: 1
+  user_id: 1
+  raiting: 1
