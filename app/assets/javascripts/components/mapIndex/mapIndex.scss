@@ -2,3 +2,15 @@
 	height: 70%;
 }
 /* Optional: Makes the sample page fill the window. */
+
+.destination-wrap {
+	background-color: yellow;
+	display: flex;
+	width: 500px;
+	flex-wrap: wrap;
+}
+
+.form-wrap {
+	display: inline-flex;
+	justify-content: flex-end;
+}
