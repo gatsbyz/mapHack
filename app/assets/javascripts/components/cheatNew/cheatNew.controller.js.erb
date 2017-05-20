@@ -2,9 +2,9 @@ angular
     .module('mapHack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$http', 'cheatsService'];
+CheatNewController.$inject = ['$state','$http', 'cheatsService'];
 
-function CheatNewController($http, cheatsService) {
+function CheatNewController($state, $http, cheatsService) {
  	var vm = this;
 
     vm.cheat = {
@@ -12,8 +12,12 @@ function CheatNewController($http, cheatsService) {
         start_point_lat: 0,
         start_point_lng: 0,
         end_point_lat: 0,
+<<<<<<< HEAD
         end_point_lng: 0,
 
+=======
+        end_point_long: 0
+>>>>>>> Changed CheatNew Controller
     };
 
 	initAutocomplete();
@@ -101,6 +105,7 @@ function CheatNewController($http, cheatsService) {
         });
         markersArray.push(marker);
         //map.panTo(latLng);
+        console.log(marker);
     }
 
     function clearOverlays() {
@@ -120,16 +125,16 @@ function CheatNewController($http, cheatsService) {
             } else {
                 vm.cheat.end_point_lat = element.position.lat();
                 vm.cheat.end_point_lng = element.position.lng();
+
             } 
         });
-
         console.log(vm.cheat);
 
         cheatsService
           .createCheat(vm.cheat)
           .then(function(res) {
             if(res.status == 201) {
-              $state.go('cheatShow'); // cheat detail page
+              // $state.go('cheatShow') // cheat detail page
             } else {
               alert('Something went wrong. check your inputs again');
             };
