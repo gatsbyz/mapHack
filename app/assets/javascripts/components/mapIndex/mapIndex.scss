@@ -5,12 +5,27 @@
 
 .destination-wrap {
 	background-color: yellow;
-	display: flex;
-	width: 500px;
+	display: inline-flex;
+	width: 350px;
 	flex-wrap: wrap;
+	justify-content: flex-end;
+	padding-top: 10px;
+	padding-bottom: 15px;
 }
 
 .form-wrap {
-	display: inline-flex;
-	justify-content: flex-end;
+	float: right;
+}
+
+#pac-input {
+	width: 300px;
+	height: 25px;
+	margin-top: 10px;
+}
+
+.button {
+	height: 25px;
+	width: auto;
+	border-style: left;
+	background-color: white;
 }
