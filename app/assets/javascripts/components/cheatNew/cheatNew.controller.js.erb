@@ -10,9 +10,9 @@ function CheatNewController($http, cheatsService) {
     vm.cheat = {
         description:'',
         start_point_lat: 0,
-        start_point_long: 0,
+        start_point_lng: 0,
         end_point_lat: 0,
-        end_point_long: 0,
+        end_point_lng: 0,
 
     };
 
@@ -112,13 +112,14 @@ function CheatNewController($http, cheatsService) {
 
     function saveCheat() {
 
-        markersArray.forEach(function(marker,index) {
+        markersArray.forEach(function(element,index) {
             if (index == 0) {
-                vm.cheat.start_point_lat = marker.position.lat
-                vm.cheat.start_point_lng = marker.position.lng
+                console.log(element.position);
+                vm.cheat.start_point_lat = element.position.lat();
+                vm.cheat.start_point_lng = element.position.lng();
             } else {
-                vm.cheat.end_point_lat = marker.position.lat
-                vm.cheat.end_point_lng = marker.position.lng
+                vm.cheat.end_point_lat = element.position.lat();
+                vm.cheat.end_point_lng = element.position.lng();
             } 
         });
 
@@ -128,9 +129,9 @@ function CheatNewController($http, cheatsService) {
           .createCheat(vm.cheat)
           .then(function(res) {
             if(res.status == 201) {
-              $state.go('cheatShow') // cheat detail page
+              $state.go('cheatShow'); // cheat detail page
             } else {
-              alert('Something went wrong. check your inputs again')
+              alert('Something went wrong. check your inputs again');
             };
           });
       };
