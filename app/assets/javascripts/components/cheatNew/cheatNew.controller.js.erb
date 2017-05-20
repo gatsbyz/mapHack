@@ -10,14 +10,9 @@ function CheatNewController($state, $http, cheatsService) {
     vm.cheat = {
         description:'',
         start_point_lat: 0,
-        start_point_lng: 0,
+        start_point_long: 0,
         end_point_lat: 0,
-<<<<<<< HEAD
-        end_point_lng: 0,
-
-=======
-        end_point_long: 0
->>>>>>> Changed CheatNew Controller
+        end_point_long: 0,
     };
 
 	initAutocomplete();
@@ -121,10 +116,10 @@ function CheatNewController($state, $http, cheatsService) {
             if (index == 0) {
                 console.log(element.position);
                 vm.cheat.start_point_lat = element.position.lat();
-                vm.cheat.start_point_lng = element.position.lng();
+                vm.cheat.start_point_long = element.position.lng();
             } else {
                 vm.cheat.end_point_lat = element.position.lat();
-                vm.cheat.end_point_lng = element.position.lng();
+                vm.cheat.end_point_long = element.position.lng();
 
             } 
         });
