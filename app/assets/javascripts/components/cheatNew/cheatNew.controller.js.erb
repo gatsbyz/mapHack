@@ -14,7 +14,7 @@ function CheatNewController($state, $http, cheatsService) {
         end_point_lat: 0,
         end_point_long: 0,
     };
-
+    
 	initAutocomplete();
 
     vm.clearOverlays = clearOverlays;
@@ -120,7 +120,6 @@ function CheatNewController($state, $http, cheatsService) {
             } else {
                 vm.cheat.end_point_lat = element.position.lat();
                 vm.cheat.end_point_long = element.position.lng();
-
             } 
         });
         console.log(vm.cheat);
