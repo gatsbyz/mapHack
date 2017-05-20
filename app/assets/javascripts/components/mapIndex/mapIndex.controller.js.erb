@@ -1,0 +1,12 @@
+angular
+  .module('mapHack')
+  .component('mapIndex', {
+    templateUrl: '<%= asset_path("components/mapIndex/mapIndex") %>',
+    controller: MapIndexController
+  });
+
+MapIndexController.$inject = ['$http'];
+
+function MapIndexController($http) {
+  var vm = this;
+}
