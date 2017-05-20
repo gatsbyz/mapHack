@@ -9,11 +9,17 @@ function CheatNewController($http) {
 
     vm.cheat = {
         description:'',
+        start_point_lat: 0,
+        start_point_long: 0,
+        end_point_lat: 0,
+        end_point_long: 0,
+
     };
 
 	initAutocomplete();
 
     vm.clearOverlays = clearOverlays;
+    vm.saveCheat = saveCheat;
 
     var markersArray = [];
 
@@ -104,17 +110,24 @@ function CheatNewController($http) {
         markersArray.length = 0;
     }
 
-
     function saveCheat() {
         console.log(vm.cheat);
 
-        var userId = $stateParams.userId;
+        markersArray.forEach(function(marker,index) {
+            if (index == 0) {
+                vm.cheat.start_point_lat = marker.position.lat
+                vm.cheat.start_point_lng = marker.position.lng
+            } else {
+                vm.cheat.end_point_lat = marker.position.lat
+                vm.cheat.end_point_lng = marker.position.lng
+            } 
+        });
 
         cheatsService
-          .createPost(vm.cheat, userId)
+          .createCheat(vm.cheat)
           .then(function(res) {
             if(res.status == 201) {
-              //$state.go('userShow', { id: userId})
+              $state.go('cheatShow') // cheat detail page
             } else {
               alert('Something went wrong. check your inputs again')
             };
