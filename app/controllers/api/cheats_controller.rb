@@ -1,5 +1,5 @@
 class Api::CheatsController < ApplicationController
-	
+
 	def index
 		@cheats = Cheat.all
 		@user = current_user
@@ -10,9 +10,9 @@ class Api::CheatsController < ApplicationController
 	  	@cheat = Cheat.new(cheat_params)
 
 	    if @cheat.save
-	      render json: @cheat, status: :created
+			render json: @cheat, status: :created
 	    else
-	      render json: @cheat.errors, status: :unprocessable_entity
+			render json: @cheat.errors, status: :unprocessable_entity
     end
 
 	private
