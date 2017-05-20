@@ -42,52 +42,52 @@ function MapIndexController($http) {
               $("#error").append("Unable to retrieve your route<br />");
           }
         );
-      }
+    }
 
-      $(document).ready(function() {
-        // If the browser supports the Geolocation API
+    $(document).ready(function() {
+    // If the browser supports the Geolocation API
         if (typeof navigator.geolocation == "undefined") {
-          $("#error").text("Your browser doesn't support the Geolocation API");
-          return;
+            $("#error").text("Your browser doesn't support the Geolocation API");
+            return;
         }
 
         $("#from-link, #to-link").click(function(event) {
-          event.preventDefault();
-          var addressId = this.id.substring(0, this.id.indexOf("-"));
+            event.preventDefault();
+            var addressId = this.id.substring(0, this.id.indexOf("-"));
 
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({
-              "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                    "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+                },
+                function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK)
+                        $("#" + addressId).val(results[0].formatted_address);
+                    else
+                        $("#error").append("Unable to retrieve your address<br />");
+                });
             },
-            function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK)
-                $("#" + addressId).val(results[0].formatted_address);
-              else
-                $("#error").append("Unable to retrieve your address<br />");
+            function(positionError){
+                $("#error").append("Error: " + positionError.message + "<br />");
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10 * 1000 // 10 seconds
             });
-          },
-          function(positionError){
-            $("#error").append("Error: " + positionError.message + "<br />");
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10 * 1000 // 10 seconds
-          });
         });
 
         $("#calculate-route").submit(function(event) {
-          event.preventDefault();
-          calculateRoute($("#from").val(), $("#to").val());
+            event.preventDefault();
+            calculateRoute($("#from").val(), $("#to").val());
         });
-      });
+    });
 	
 
 	function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.8688, lng: 151.2195},
-          zoom: 13,
-          mapTypeId: 'roadmap'
+            center: {lat: -33.8688, lng: 151.2195},
+            zoom: 13,
+            mapTypeId: 'roadmap'
         });
 
         // Create the search box and link it to the UI element.
@@ -97,55 +97,54 @@ function MapIndexController($http) {
 
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
+            searchBox.setBounds(map.getBounds());
         });
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
+        var places = searchBox.getPlaces();
+        if (places.length == 0) {
             return;
-          }
+        }
 
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
             marker.setMap(null);
-          });
-          markers = [];
+        });
+        markers = [];
 
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+        if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
 
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
 
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+        });
           map.fitBounds(bounds);
         });
       }
