@@ -32,14 +32,14 @@ function CheatShowController($http, cheatsService, $stateParams) {
         console.log(vm.cheat)
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: vm.cheat.start_point_lat, lng: vm.cheat.start_point_long},
-            zoom: 15,
+            zoom: 18,
             mapTypeId: 'roadmap'
         });
     }
 
     function drawCheatPath(cheat) {
     	var flightPath = new google.maps.Polyline({
-          path: [{lat: cheat.start_point_lat, lng: vm.cheat.start_point_long},{lat: cheat.end_point_lat, lng: vm.cheat.end_point_long}],
+          path: [{lat: cheat.start_point_lat, lng: cheat.start_point_long},{lat: cheat.end_point_lat, lng: cheat.end_point_long}],
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,

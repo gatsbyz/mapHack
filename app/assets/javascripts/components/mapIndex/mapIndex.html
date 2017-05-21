@@ -27,11 +27,3 @@
 </form>
   
 <div id="map"></div>
-
-<div ng-repeat="cheat in $ctrl.cheats">
-  <div class="cheat">
-    <p><strong>{{cheat.user.email}}</strong> {{cheat.description}}</p>
-    <p><strong>{{cheat.user.name}}</strong> {{cheat.description}} <span ng-show="$ctrl.currentUser == cheat.user_id"><a href="#">edit</a> | <a href="#" ng-click="$ctrl.deleteCheat(cheat)">delete</a></span></p>
-  </div>
-</div>
-
