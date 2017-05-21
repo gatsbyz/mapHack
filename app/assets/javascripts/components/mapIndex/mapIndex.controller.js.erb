@@ -18,7 +18,6 @@ function MapIndexController($http, cheatsService) {
     onLoad();
 
     function onLoad() {
-
         cheatsService
             .getCheats()
             .then(function(res){
@@ -27,7 +26,6 @@ function MapIndexController($http, cheatsService) {
 
                 drawCheats(vm.cheats);
         });
-
     }
 
 	initAutocomplete();

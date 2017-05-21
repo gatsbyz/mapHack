@@ -1,5 +1,5 @@
 #map {
-	height: 70%;
+	height: 50%;
 }
 /* Optional: Makes the sample page fill the window. */
 
@@ -14,7 +14,8 @@
 
 .form-wrap {
 	float: right;
-	margin-top: 5px;
+	margin-top: 3px;
+	margin-bottom: 5px;
 }
 
 #pac-input {
@@ -28,4 +29,9 @@
 	width: auto;
 	border-style: left;
 	background-color: white;
+}
+
+.new-cheat {
+	float: right;
+	margin-right: 3%;
 }

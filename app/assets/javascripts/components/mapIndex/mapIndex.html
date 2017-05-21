@@ -2,23 +2,31 @@
 
 <form id="calculate-route" name="calculate-route" action="#" method="get">
 
-    <div class="destination-wrap">
-        <div class="form-wrap">
-            <label for="from">From:</label>
-            <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
-            <a id="from-link" href="#">Get my position</a>
-            <br />
-        </div>
-        <div class="form-wrap">
-            <label for="to">To:</label>
-            <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
-            <a id="to-link" href="#">Get my position</a>
-            <br />
-        </div>
+  <div class="destination-wrap">
+    <div class="form-wrap">
+      <label for="from">From:</label>
+      <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+      <a id="from-link" href="#">Get my position</a>
+      <br />
     </div>
+    <div class="form-wrap">
+      <label for="to">To:</label>
+      <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
+      <a id="to-link" href="#">Get my position</a>
+      <br />
+    </div>
+  </div>
 
     <input class="button" type="submit" />
     <input class="button" type="reset" />
-</form>
+    <button ui-sref="cheatNew" class="button new-cheat"> Create New Cheat </button>
 
+</form>
+  
 <div id="map"></div>
+
+<div ng-repeat="cheat in $ctrl.cheats">
+  <div class="cheat">
+    <p><strong>{{cheat.user_id}}</strong> {{cheat.description}}</p>
+  </div>
+</div>

@@ -2,8 +2,7 @@ class Api::CheatsController < ApplicationController
 
 	def index
 		@cheats = Cheat.all
-		@user = current_user
-		render json: { cheats: @cheats, currentUser: @user }
+		render json: @cheats.to_json(include: :user)
 	end
 
 	def show
@@ -21,6 +20,13 @@ class Api::CheatsController < ApplicationController
 			render json: @cheat.errors, status: :unprocessable_entity
 		end
     end
+
+    def destroy
+    @cheat = current_user.cheats.find(params[:id])
+    @cheat.destroy
+
+    render json: '', status: :no_content
+  	end
 
 	private
 
