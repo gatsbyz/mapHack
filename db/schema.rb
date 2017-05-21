@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520214726) do
+ActiveRecord::Schema.define(version: 20170521002010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cheats", force: :cascade do |t|
     t.text     "description"
-    t.integer  "start_point_lat"
-    t.integer  "start_point_long"
-    t.integer  "end_point_lat"
-    t.integer  "end_point_long"
+    t.float    "start_point_lat"
+    t.float    "start_point_long"
+    t.float    "end_point_lat"
+    t.float    "end_point_long"
     t.integer  "user_id"
     t.integer  "rating"
     t.datetime "created_at",       null: false

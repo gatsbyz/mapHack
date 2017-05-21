@@ -7,14 +7,14 @@
 	background-color: yellow;
 	display: inline-flex;
 	width: 350px;
+	height: 65px;
 	flex-wrap: wrap;
 	justify-content: flex-end;
-	padding-top: 10px;
-	padding-bottom: 15px;
 }
 
 .form-wrap {
 	float: right;
+	margin-top: 5px;
 }
 
 #pac-input {
