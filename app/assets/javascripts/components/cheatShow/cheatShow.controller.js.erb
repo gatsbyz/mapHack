@@ -22,9 +22,8 @@ function CheatShowController($http, cheatsService, $stateParams) {
                 console.log(res)
                 vm.cheat = res.data;
                 initAutocomplete();
-
-                drawCheatPath(vm.cheat);
                 drawCheatEndPoints(vm.cheat);
+                drawCheatPath(vm.cheat);
         });
     }
 

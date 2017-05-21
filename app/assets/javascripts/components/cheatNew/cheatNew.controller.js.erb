@@ -134,7 +134,7 @@ function CheatNewController($state, $http, cheatsService) {
           .createCheat(vm.cheat)
           .then(function(res) {
             if(res.status == 201) {
-              // $state.go('cheatShow') // cheat detail page
+              $state.go('cheatShow', {id: res.data.id}) // cheat detail page
             } else {
               alert('Something went wrong. check your inputs again');
             };
