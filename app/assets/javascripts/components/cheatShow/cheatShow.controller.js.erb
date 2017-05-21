@@ -32,12 +32,8 @@ function CheatShowController($http, cheatsService, $stateParams) {
         console.log(vm.cheat)
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: vm.cheat.start_point_lat, lng: vm.cheat.start_point_long},
-            zoom: 13,
+            zoom: 15,
             mapTypeId: 'roadmap'
-        });
-
-        map.addListener('click', function(e) {
-            placeMarker(e.latLng, map);
         });
     }
 
