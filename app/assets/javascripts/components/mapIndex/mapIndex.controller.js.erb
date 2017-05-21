@@ -22,8 +22,7 @@ function MapIndexController($http, cheatsService) {
             .getCheats()
             .then(function(res){
                 console.log(res)
-                vm.cheats = res.data.cheats;
-
+                vm.cheats = res.data;
                 drawCheats(vm.cheats);
         });
     }
