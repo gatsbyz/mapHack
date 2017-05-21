@@ -2,8 +2,73 @@ angular
     .module('mapHack')
     .controller('CheatShowController', CheatShowController);
 
-CheatShowController.$inject = ['$http'];
+CheatShowController.$inject = ['$http','cheatsService', '$stateParams'];
 
-function CheatShowController($http) {
+function CheatShowController($http, cheatsService, $stateParams) {
+
  	var vm = this;
+ 	var map = {};
+    vm.cheat = [];
+
+    var cheatMarkersArray = [];
+
+	onLoad();
+
+
+    function onLoad() {
+        cheatsService
+            .getCheat($stateParams.id)
+            .then(function(res){
+                console.log(res)
+                vm.cheat = res.data;
+                initAutocomplete();
+
+                drawCheatPath(vm.cheat);
+                drawCheatEndPoints(vm.cheat);
+        });
+    }
+
+	function initAutocomplete() {
+
+        console.log(vm.cheat)
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: vm.cheat.start_point_lat, lng: vm.cheat.start_point_long},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+
+        map.addListener('click', function(e) {
+            placeMarker(e.latLng, map);
+        });
+    }
+
+    function drawCheatPath(cheat) {
+    	var flightPath = new google.maps.Polyline({
+          path: [{lat: cheat.start_point_lat, lng: vm.cheat.start_point_long},{lat: cheat.end_point_lat, lng: vm.cheat.end_point_long}],
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+    }
+
+    function drawCheatEndPoints(cheat) {
+        var latLng = {lat: cheat.start_point_lat, lng: cheat.start_point_long};
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+
+        cheatMarkersArray.push(marker);
+
+        latLng = {lat: cheat.end_point_lat, lng: cheat.end_point_long};
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+
+        cheatMarkersArray.push(marker);
+    }
 }
