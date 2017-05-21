@@ -6,16 +6,21 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Bungee|Cousine" rel="stylesheet">
   </head>
 
   <body ng-app="mapHack">
-    <nav>
-      <% if user_signed_in? %>
-        <%= link_to 'Home', root_path %>
-        <%= link_to 'Edit account', edit_user_registration_path, target: '_self' %>
-        <%= link_to 'Sign out', destroy_user_session_path, method: 'delete', target: '_self' %>
-      <% end %>
-    </nav>
+    <div class="nav-section">
+      
+        <% if user_signed_in? %>
+          <div class="nav"><%= link_to 'Home', root_path %></div>
+          <div class="nav"><a href="/map"> View Map</a></div>
+          <div class="logotype">MAP HACK</div>
+          <div class="nav"><a href="/cheat/new">New Cheat </a></div>
+          <div class="nav"><%= link_to 'Sign out', destroy_user_session_path, method: 'delete', target: '_self' %></div>
+        <% end %>
+
+    </div>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

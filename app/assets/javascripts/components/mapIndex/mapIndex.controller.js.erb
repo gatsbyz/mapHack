@@ -2,16 +2,18 @@ angular
   .module('mapHack')
   .controller('MapIndexController', MapIndexController);
 
-MapIndexController.$inject = ['$http', 'cheatsService'];
+MapIndexController.$inject = ['$http', 'cheatsService', '$window'];
 
 
-function MapIndexController($http, cheatsService) {
+function MapIndexController($http, cheatsService, $window) {
  	var vm = this;
-
 
     var map = [];
 
     vm.cheats = [];
+    vm.currentUser = {};
+    vm.userArray = [];
+    vm.deleteCheat = deleteCheat;
 
     var cheatMarkersArray = [];
 
@@ -22,12 +24,24 @@ function MapIndexController($http, cheatsService) {
             .getCheats()
             .then(function(res){
                 console.log(res)
-                vm.cheats = res.data;
+                vm.cheats = res.data.cheats;
+                vm.currentUser = res.data.currentUser.id;
+                vm.userArray = res.data.user_array;
                 drawCheats(vm.cheats);
         });
     }
 
 	initAutocomplete();
+
+    function deleteCheat(cheat) {
+        var id = cheat.id
+        cheatsService
+            .deleteCheat(id)
+            .then(function(res){
+                console.log('Your cheat has been deleted')
+                $window.location.reload();
+            })
+    }
 
 
 	function calculateRoute(from, to) {

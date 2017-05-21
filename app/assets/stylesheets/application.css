@@ -16,8 +16,57 @@
  *= require_self
  */
 
+/*font-family: 'Bungee', cursive;
+font-family: 'Cousine', monospace;*/
+
+
 html, body {
 	height: 100%;
 	margin: 0;
-	padding: 0;
+	padding: 0px 30px 15px 30px;
+}
+
+.homePage {
+	display: flex;
+	justify-content: center;
+	margin-right: 20px;
+}
+
+.homePage-image {
+	width: 600px;
+	margin: 10px;
+}
+
+.homePage-context {
+	width: 300px;
+	font-family: 'Cousine', monospace;
+	font-size: 20px;
+}
+
+.nav-section {
+	width: 100%;
+	height: 65px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 1.5px solid blue;
+	margin: 0 auto;
+}
+
+.logotype {
+	font-family: 'Bungee', cursive;
+	font-size: 40px;
+	display: flex;
+	padding: 10px;
+}
+
+.nav {
+	font-family: 'Cousine', monospace;
+	font-size: 18px;
+	text-decoration: none;
+	text-decoration-style: none;
+	text-underline-position: none;
+	color: blue;
+	padding: 10px;
 }

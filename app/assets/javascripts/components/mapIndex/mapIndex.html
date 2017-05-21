@@ -6,13 +6,13 @@
     <div class="form-wrap">
       <label for="from">From:</label>
       <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
-      <a id="from-link" href="#">Get my position</a>
+      <a id="from-link" href="#">Get my location</a>
       <br />
     </div>
     <div class="form-wrap">
       <label for="to">To:</label>
       <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
-      <a id="to-link" href="#">Get my position</a>
+      <a id="to-link" href="#">Get my location</a>
       <br />
     </div>
   </div>
@@ -28,5 +28,6 @@
 <div ng-repeat="cheat in $ctrl.cheats">
   <div class="cheat">
     <p><strong>{{cheat.user.email}}</strong> {{cheat.description}}</p>
+    <p><strong>{{cheat.user.name}}</strong> {{cheat.description}} <span ng-show="$ctrl.currentUser == cheat.user_id"><a href="#">edit</a> | <a href="#" ng-click="$ctrl.deleteCheat(cheat)">delete</a></span></p>
   </div>
 </div>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     	get '/map' => 'cheats#index'
     	post '/cheat' => 'cheats#create'
       get '/cheat/:id' => 'cheats#show'
+      delete '/cheat/:id' => 'cheats#destroy'
     end
  
   	root to: 'client#index'

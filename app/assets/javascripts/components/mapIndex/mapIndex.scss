@@ -1,15 +1,29 @@
+/*font-family: 'Bungee', cursive;
+font-family: 'Cousine', monospace;
+*/
 #map {
-	height: 50%;
+	height: 55%;
+	padding: 0px 15px 15px 15px;
 }
 /* Optional: Makes the sample page fill the window. */
 
 .destination-wrap {
-	background-color: yellow;
+	background-color: none;
 	display: inline-flex;
-	width: 350px;
+	width: 550px;
 	height: 65px;
 	flex-wrap: wrap;
 	justify-content: flex-end;
+	font-family: 'Cousine', monospace;
+	margin: 15px;
+}
+
+#from {
+	width: 300px;
+}
+
+#to {
+	width: 300px;
 }
 
 .form-wrap {
@@ -29,9 +43,21 @@
 	width: auto;
 	border-style: left;
 	background-color: white;
+	margin-top: 2px;
+	font-family: 'Cousine', monospace;
+}
+
+.button:hover {
+	background-color: gray;
+	color: white;
 }
 
 .new-cheat {
 	float: right;
 	margin-right: 3%;
 }
+
+.cheat {
+	margin-left: 15px;
+}
+

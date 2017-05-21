@@ -9,23 +9,12 @@ function cheatsService($http, $stateParams) {
 
   factory.getCheats = function() {
     return $http
-      .get('/api/map');
-  }
-
-  factory.getCheat = function(id) {
-    return $http
-      .get('/api/cheat/' + id);
+    	.get('/api/map');
   }
 
   factory.createCheat = function(newCheat) {
-    return $http
-    	.post('/api/cheat', newCheat);
+  	return $http
+  		.post('/api/map', newCheat)
   }
-
-  factory.deleteCheat = function(id) {
-    return $http
-      .delete('/api/cheat/' + id)
-  }
-
   return factory;
 }

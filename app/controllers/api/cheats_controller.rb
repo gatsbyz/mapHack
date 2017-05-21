@@ -2,7 +2,13 @@ class Api::CheatsController < ApplicationController
 
 	def index
 		@cheats = Cheat.all
-		render json: @cheats.to_json(include: :user)
+		@currentUser = current_user
+		user_array = []
+		@cheats.each { |x|
+			user_array.push(User.find(x.user_id))
+		}
+		render json: {cheats: @cheats, currentUser: @currentUser, user_array: user_array}
+		# render json: @cheats.to_json(include: :user)
 	end
 
 	def show
