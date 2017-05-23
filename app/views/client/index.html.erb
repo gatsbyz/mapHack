@@ -13,10 +13,10 @@
     <div class="nav-section">
       
         <% if user_signed_in? %>
-          <div class="nav"><%= link_to 'Home', root_path %></div>
-          <div class="nav"><a href="/map"> View Map</a></div>
+          <div class="nav"><%= link_to 'About', root_path %></div>
+          <div class="nav"><a href="/map">View Map</a></div>
           <div class="logotype">MAP HACK</div>
-          <div class="nav"><a href="/cheat/new">New Cheat </a></div>
+          <div class="nav"><a href="/cheat/new">Add A Cheat </a></div>
           <div class="nav"><%= link_to 'Sign out', destroy_user_session_path, method: 'delete', target: '_self' %></div>
         <% end %>
 

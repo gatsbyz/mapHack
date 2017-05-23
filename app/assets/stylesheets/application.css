@@ -22,8 +22,10 @@ font-family: 'Cousine', monospace;*/
 
 html, body {
 	height: 100%;
-	margin: 0;
-	padding: 0px 30px 15px 30px;
+}
+
+html {
+    margin: auto;
 }
 
 .homePage {

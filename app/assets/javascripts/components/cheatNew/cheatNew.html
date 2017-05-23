@@ -1,20 +1,18 @@
 <input id="pac-input" class="controls" type="text" placeholder="Search Box"> 
 
 <div id="map"></div>
-<button class="button" style="margin-top: 10px" ng-click="$ctrl.clearOverlays()">Reset Markers</button>
 
-
-<div class="cheat-new-page">
-	<div><h1>New Cheat</h1></div>
-	<form>
-	  <textarea rows="10" cols="60"ng-model="$ctrl.cheat.description" placeholder="More details"></textarea>
-	  <br/>
+<div id="cheat-new-page">
+	<form >
+	  <textarea id="cheat-textarea" rows="10" cols="60"ng-model="$ctrl.cheat.description" placeholder="Write details about this hacked route."></textarea>
 	<!--   <label>From</label>
 	  <input type="checkbox" ng-model="$ctrl.cheat.from"></input>
 	  <br/>
 	  <label>To</label>
 	  <input type="checkbox" ng-model="$ctrl.cheat.to">
 	  <br/> -->
-	  <button class="button" ng-click="$ctrl.saveCheat()">Hack</button>
+
+	  <button class="button" ng-click="$ctrl.saveCheat()">Submit</button>
+	  <button class="button" ng-click="$ctrl.clearOverlays()">Reset Markers</button>
 	</form>
 </div>
