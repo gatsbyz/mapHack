@@ -3,7 +3,6 @@ font-family: 'Cousine', monospace;
 */
 #map {
 	height: 75%;
-	padding: 0px 15px 15px 15px;
 }
 /* Optional: Makes the sample page fill the window. */
 
@@ -38,6 +37,10 @@ font-family: 'Cousine', monospace;
 	margin-top: 10px;
 }
 
+#add-cheat {
+	margin: 10px;
+}
+
 .button {
 	height: 25px;
 	width: auto;
@@ -52,12 +55,10 @@ font-family: 'Cousine', monospace;
 	color: white;
 }
 
-.new-cheat {
-	float: right;
-	margin-right: 3%;
-}
-
 .cheat {
 	margin-left: 15px;
 }
 
+.button-wrap {
+	display: inline-block;
+}

@@ -4,10 +4,9 @@ font-family: 'Cousine', monospace;*/
 #cheat-new-page {
 	display: flex;
 	width: 500px;
-	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	padding: 0;
+	padding: 10px;
 	margin: 0;
 }
 
@@ -18,3 +17,11 @@ font-family: 'Cousine', monospace;*/
 	border-width: 2px;
 }
 
+.title {
+	margin-top: 2px;
+	font-family: 'Cousine', monospace;
+}
+
+#reset {
+	margin: 10px;
+}

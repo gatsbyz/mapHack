@@ -5,25 +5,26 @@
 
 <form id="calculate-route" name="calculate-route" action="#" method="get">
 
-  <div class="destination-wrap">
-    <div class="form-wrap">
-      <label for="from">From:</label>
-      <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
-      <a id="from-link" href="#">Current Location</a>
-      <br />
+    <div class="destination-wrap">
+        <div class="form-wrap">
+          <label for="from">From:</label>
+          <input type="text" id="from" name="from" required="required" placeholder="An address" size="30" />
+          <a id="from-link" href="#">Current Location</a>
+          <br />
+        </div>
+        <div class="form-wrap">
+          <label for="to">To:</label>
+          <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
+          <a id="to-link" href="#">Current Location</a>
+          <br />
+        </div>
     </div>
-    <div class="form-wrap">
-      <label for="to">To:</label>
-      <input type="text" id="to" name="to" required="required" placeholder="Another address" size="30" />
-      <a id="to-link" href="#">Current Location</a>
-      <br />
+
+    <div class="button-wrap">
+        <input class="button" type="submit" value="Get Direction"/>
+        <input class="button" type="reset" value="Reset"/>
     </div>
-  </div>
-
-    <input class="button" type="submit" />
-    <input class="button" type="reset" />
-    <button ui-sref="cheatNew" class="button new-cheat">Add A Cheat</button>
-
 </form>
   
 <div id="map"></div>
+<button ui-sref="cheatNew" id="add-cheat" class="button new-cheat">Add A Cheat</button>

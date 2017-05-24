@@ -39,7 +39,7 @@ function CheatNewController($state, $http, cheatsService) {
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        var input2 = document.getElementById('cheat-textarea');
+        var input2 = document.getElementById('reset');
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
 
         // Bias the SearchBox results towards current map's viewport.
@@ -108,7 +108,7 @@ function CheatNewController($state, $http, cheatsService) {
         });
         markersArray.push(marker);
         //map.panTo(latLng);
-        console.log(marker);
+        //console.log(marker);
     }
 
     function clearOverlays() {
