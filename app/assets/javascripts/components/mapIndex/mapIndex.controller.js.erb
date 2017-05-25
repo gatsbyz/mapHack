@@ -302,20 +302,32 @@ function MapIndexController($http, cheatsService, $window) {
             mapTypeId: 'roadmap'
         });
 
-        //google.maps.event.addListener(map, 'click', find_closest_marker);
-
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        var input2 = document.getElementById('add-cheat');
-        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
-
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
             searchBox.setBounds(map.getBounds());
         });
+
+        var fromInput = document.getElementById('from');
+        var fromBox = new google.maps.places.SearchBox(fromInput);
+
+        map.addListener('bounds_changed', function() {
+            fromBox.setBounds(map.getBounds());
+        });
+
+        var toInput = document.getElementById('to');
+        var toBox = new google.maps.places.SearchBox(toInput);
+
+        map.addListener('bounds_changed', function() {
+            toBox.setBounds(map.getBounds());
+        });
+
+        var cheatInput = document.getElementById('add-cheat');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cheatInput);
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
@@ -367,7 +379,6 @@ function MapIndexController($http, cheatsService, $window) {
       }
 
     function createMarker(latlng, label, html) {
-    // alert("createMarker("+latlng+","+label+","+html+","+color+")");
         var contentString = '<b>'+label+'</b><br>'+html;
         mark = new google.maps.Marker({
             position: latlng,
@@ -376,7 +387,6 @@ function MapIndexController($http, cheatsService, $window) {
             zIndex: Math.round(latlng.lat()*-100000)<<5
             });
         mark.myname = label;
-            // gmarkers.push(marker);
 
         return mark;
     }
@@ -384,12 +394,7 @@ function MapIndexController($http, cheatsService, $window) {
     function startAnimation() {
         eol=polyline.Distance();
         map.setCenter(polyline.getPath().getAt(0));
-        // map.addOverlay(new google.maps.Marker(polyline.getAt(0),G_START_ICON));
-        // map.addOverlay(new GMarker(polyline.getVertex(polyline.getVertexCount()-1),G_END_ICON));
-        // marker = new google.maps.Marker({location:polyline.getPath().getAt(0)} /* ,{icon:car} */);
-        // map.addOverlay(marker);
         poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:"#0000FF", strokeWeight:10});
-        // map.addOverlay(poly2);
         setTimeout(function() { animate(50); },1000);  // Allow time for the initial map display
     }
 
