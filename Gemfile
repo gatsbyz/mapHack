@@ -33,6 +33,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'angular_rails_csrf'
 
+# BOOTSTRAP ADDED ------
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootswatch-rails'
+gem 'autoprefixer-rails'
+# ----------------------
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
