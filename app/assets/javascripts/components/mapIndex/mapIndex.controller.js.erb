@@ -54,8 +54,6 @@ function MapIndexController($http, cheatsService, $window) {
     function drawCheatRoute(directionsService,from,to) {
 
         drawFromToCheat(directionsService,from);
-
-        var directionsService = new google.maps.DirectionsService();
         drawCheatToDestination(directionsService,to);
         drawCheatPath(vm.cheats[index]);
     }
@@ -75,14 +73,13 @@ function MapIndexController($http, cheatsService, $window) {
             if (status == google.maps.DirectionsStatus.OK)
             {
                 var rendererOptions = {
-                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:5},
+                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:3},
                     suppressMarkers: true,
                     directions: response,
                     map: map
                 }
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
-
             }
             else
                 $("#error").append("Unable to retrieve your route<br />");
@@ -103,7 +100,7 @@ function MapIndexController($http, cheatsService, $window) {
             function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 var rendererOptions = {
-                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:5},
+                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:3},
                     suppressMarkers: true,
                     directions: response,
                     map: map,
@@ -122,7 +119,7 @@ function MapIndexController($http, cheatsService, $window) {
           geodesic: true,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
-          strokeWeight: 5
+          strokeWeight: 3
         });
 
         flightPath.setMap(map);
@@ -134,79 +131,80 @@ function MapIndexController($http, cheatsService, $window) {
             if (status == google.maps.GeocoderStatus.OK) {
                 find_closest_marker({lat:results[0].geometry.location.lat(),lng:results[0].geometry.location.lng()});
                 var directionsService = new google.maps.DirectionsService();
-                
-                var directionsRequest = {
-                  origin: from,
-                  destination: to,
-                  travelMode: google.maps.DirectionsTravelMode.DRIVING,
-                  unitSystem: google.maps.UnitSystem.METRIC
-                };
-                directionsService.route(
-                 directionsRequest,
-                 function(response, status) {
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        var rendererOptions = {
-                            map: map
-                        }
-                        directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
-                        directionsDisplay.setDirections(response);
-                        var bounds = new google.maps.LatLngBounds();
-                        var route = response.routes[0];
-                        startLocation = new Object();
-                        endLocation = new Object();
-
-                        // For each route, display summary information.
-                        var path = response.routes[0].overview_path;
-                        var legs = response.routes[0].legs;
-
-                        polyline = new google.maps.Polyline({
-                        path: [],
-                        strokeColor: '#FF0000',
-                        strokeWeight: 3
-                        });
-                        for (i=0;i<legs.length;i++) {
-                            if (i == 0) { 
-                                startLocation.latlng = legs[i].start_location;
-                                startLocation.address = legs[i].start_address;
-                                // marker = google.maps.Marker({map:map,position: startLocation.latlng});
-                                marker = createMarker(legs[i].start_location,"start",legs[i].start_address,"green");
-                            }
-                            endLocation.latlng = legs[i].end_location;
-                            endLocation.address = legs[i].end_address;
-                            var steps = legs[i].steps;
-                            for (j=0;j<steps.length;j++) {
-                                var nextSegment = steps[j].path;
-                                for (k=0;k<nextSegment.length;k++) {
-                                    polyline.getPath().push(nextSegment[k]);
-                                    bounds.extend(nextSegment[k]);
-                                }
-                            }
-                        }
-                        drawCheatRoute(directionsService,from,to);
-
-                        polyline.setMap(map);
-                        map.fitBounds(bounds);
-
-                        var point = response.routes[ 0 ].legs[ 0 ];
-                        console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
-                        //        createMarker(endLocation.latlng,"end",endLocation.address,"red");
-                        //map.setZoom(18);
-                        startAnimation();
-
-
-                        new google.maps.DirectionsRenderer({
-                            map: map,
-                            directions: response
-                        });
-                    } else
-                        $("#error").append("Unable to retrieve your route<br />");
-                });
+                $.when(drawCheatRoute(directionsService,from,to)).then(calculateRouteHelper(directionsService,from,to));
+   
             } else {
                 alert("Something got wrong " + status);
             }
         });
+    }
 
-       
+    function calculateRouteHelper(directionsService,from,to) {
+        var directionsRequest = {
+            origin: from,
+            destination: to,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC
+        };
+        directionsService.route(
+         directionsRequest,
+         function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                var rendererOptions = {
+                    map: map
+                }
+                directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                directionsDisplay.setDirections(response);
+                var bounds = new google.maps.LatLngBounds();
+                var route = response.routes[0];
+                startLocation = new Object();
+                endLocation = new Object();
+
+                // For each route, display summary information.
+                var path = response.routes[0].overview_path;
+                var legs = response.routes[0].legs;
+
+                polyline = new google.maps.Polyline({
+                path: [],
+                //strokeColor: '#FF0000',
+                strokeWeight: 3
+                });
+                for (i=0;i<legs.length;i++) {
+                    if (i == 0) { 
+                        startLocation.latlng = legs[i].start_location;
+                        startLocation.address = legs[i].start_address;
+                        // marker = google.maps.Marker({map:map,position: startLocation.latlng});
+                        marker = createMarker(legs[i].start_location,"start",legs[i].start_address,"green");
+                    }
+                    endLocation.latlng = legs[i].end_location;
+                    endLocation.address = legs[i].end_address;
+                    var steps = legs[i].steps;
+                    for (j=0;j<steps.length;j++) {
+                        var nextSegment = steps[j].path;
+                        for (k=0;k<nextSegment.length;k++) {
+                            polyline.getPath().push(nextSegment[k]);
+                            bounds.extend(nextSegment[k]);
+                        }
+                    }
+                }
+
+                //polyline.setMap(map);
+                map.fitBounds(bounds);
+
+                var point = response.routes[ 0 ].legs[ 0 ];
+                console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
+                //        createMarker(endLocation.latlng,"end",endLocation.address,"red");
+                //map.setZoom(18);
+                startAnimation();
+
+
+                // new google.maps.DirectionsRenderer({
+                //     map: map,
+                //     directions: response
+                // });
+            } else
+                $("#error").append("Unable to retrieve your route<br />");
+        });
     }
 
     function drawCheats(cheats) {
@@ -394,7 +392,7 @@ function MapIndexController($http, cheatsService, $window) {
     function startAnimation() {
         eol=polyline.Distance();
         map.setCenter(polyline.getPath().getAt(0));
-        poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:"#0000FF", strokeWeight:10});
+        //poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:"#0000FF", strokeWeight:3});
         setTimeout(function() { animate(50); },1000);  // Allow time for the initial map display
     }
 
@@ -407,7 +405,7 @@ function MapIndexController($http, cheatsService, $window) {
         var p = polyline.GetPointAtDistance(d);
         //map.panTo(p);
         mark.setPosition(p);
-        updatePoly(d);
+        //updatePoly(d);
 
         setTimeout(function() { animate(d+50); }, 100);
     }
