@@ -73,7 +73,7 @@ function MapIndexController($http, cheatsService, $window) {
             if (status == google.maps.DirectionsStatus.OK)
             {
                 var rendererOptions = {
-                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:3},
+                    polylineOptions:{strokeColor:"#ff0000",strokeOpacity: 1.0,strokeWeight:3},
                     suppressMarkers: true,
                     directions: response,
                     map: map
@@ -100,7 +100,7 @@ function MapIndexController($http, cheatsService, $window) {
             function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 var rendererOptions = {
-                    polylineOptions:{strokeColor:"#ff0000",strokeWeight:3},
+                    polylineOptions:{strokeColor:"#ff0000",strokeOpacity: 1.0,strokeWeight:3},
                     suppressMarkers: true,
                     directions: response,
                     map: map,
