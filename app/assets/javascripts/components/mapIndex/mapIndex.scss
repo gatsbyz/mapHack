@@ -9,10 +9,9 @@ font-family: 'Cousine', monospace;
 .destination-wrap {
 	background-color: none;
 	display: inline-flex;
-	width: 550px;
-	height: 65px;
+	max-width: 60%;
 	flex-wrap: wrap;
-	justify-content: flex-end;
+	/*justify-content: flex-end;*/
 	font-family: 'Cousine', monospace;
 	margin: 15px;
 }
@@ -33,7 +32,7 @@ font-family: 'Cousine', monospace;
 
 #pac-input {
 	width: 300px;
-	height: 25px;
+	height: 29px;
 	margin-top: 10px;
 }
 
@@ -56,6 +55,17 @@ font-family: 'Cousine', monospace;
 	margin-left: 15px;
 }
 
-.button-wrap {
-	display: inline-block;
+.info-wrap {
+	margin: 15px;
+	display: inline-flex;
+	max-width: 40%;
+	flex-wrap: wrap;
+}
+
+.info-data {
+	display: block;
+}
+
+.labels {
+	width: 40px;
 }

@@ -26,6 +26,8 @@ function MapIndexController($http, cheatsService, $window) {
     var polyline = null;
     var poly2 = null;
 
+    vm.origTime = null;
+
     onLoad();
     initAutocomplete();
 
@@ -192,11 +194,14 @@ function MapIndexController($http, cheatsService, $window) {
                 map.fitBounds(bounds);
 
                 var point = response.routes[ 0 ].legs[ 0 ];
+                vm.origTime = point.duration.text;
+                $("#origTime").html(point.duration.text);
+                vm.origDist = point.distance.text;
+                $("#origDist").html(point.distance.text);
                 console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
                 //        createMarker(endLocation.latlng,"end",endLocation.address,"red");
                 //map.setZoom(18);
                 startAnimation();
-
 
                 // new google.maps.DirectionsRenderer({
                 //     map: map,
@@ -205,6 +210,10 @@ function MapIndexController($http, cheatsService, $window) {
             } else
                 $("#error").append("Unable to retrieve your route<br />");
         });
+    }
+
+    function yes() {
+        return vm.origTime;
     }
 
     function drawCheats(cheats) {
