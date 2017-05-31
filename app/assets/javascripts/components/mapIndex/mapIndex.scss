@@ -8,11 +8,10 @@ font-family: 'Cousine', monospace;
 
 .destination-wrap {
 	background-color: none;
-	display: inline-flex;
-	max-width: 60%;
+	display: block;
+	max-width: 100%;
 	flex-wrap: wrap;
 	/*justify-content: flex-end;*/
-	font-family: 'Cousine', monospace;
 	margin: 15px;
 }
 
@@ -25,9 +24,12 @@ font-family: 'Cousine', monospace;
 }
 
 .form-wrap {
-	float: right;
-	margin-top: 3px;
-	margin-bottom: 5px;
+	display: inline-flex;
+	margin: 0 auto;
+}
+
+.form-control {
+	display: inline;
 }
 
 #pac-input {
@@ -40,10 +42,8 @@ font-family: 'Cousine', monospace;
 	margin: 10px;
 }
 
-.button {
-	border-style: left;
-	background-color: white;
-	font-family: 'Cousine', monospace;
+#get-direction {
+	margin-right: 4px;
 }
 
 .button:hover {
@@ -56,16 +56,15 @@ font-family: 'Cousine', monospace;
 }
 
 .info-wrap {
-	margin: 15px;
+	margin: 0 0 15px 15px;
 	display: inline-flex;
+	flex-direction: column;
 	max-width: 40%;
 	flex-wrap: wrap;
 }
 
-.info-data {
-	display: block;
-}
-
-.labels {
-	width: 40px;
+.path {
+	height: 29px;
+	margin-right: 4px;
+	margin-left: 4px;
 }

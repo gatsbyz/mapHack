@@ -26,7 +26,10 @@ function MapIndexController($http, cheatsService, $window) {
     var polyline = null;
     var poly2 = null;
 
-    vm.origTime = null;
+    vm.origTime = 0;
+    vm.origDist = 0;
+    vm.hackTime = 0;
+    vm.hackDist = 0;
 
     onLoad();
     initAutocomplete();
@@ -58,6 +61,8 @@ function MapIndexController($http, cheatsService, $window) {
         drawFromToCheat(directionsService,from);
         drawCheatToDestination(directionsService,to);
         drawCheatPath(vm.cheats[index]);
+
+
     }
 
     function drawFromToCheat(directionsService,from) {
@@ -80,6 +85,12 @@ function MapIndexController($http, cheatsService, $window) {
                     directions: response,
                     map: map
                 }
+
+                var point = response.routes[ 0 ].legs[ 0 ];
+                vm.hackTime += point.duration.value;
+                vm.hackDist += point.distance.value;
+                
+
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
             }
@@ -107,6 +118,11 @@ function MapIndexController($http, cheatsService, $window) {
                     directions: response,
                     map: map,
                 }
+
+                var point = response.routes[ 0 ].legs[ 0 ];
+                vm.hackTime += point.duration.value;
+                vm.hackDist += point.distance.value;
+
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
             } else
@@ -201,6 +217,9 @@ function MapIndexController($http, cheatsService, $window) {
                 console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
                 //        createMarker(endLocation.latlng,"end",endLocation.address,"red");
                 //map.setZoom(18);
+                $("#hackTime").html(Math.round(vm.hackTime/60)+"mins");
+                $("#hackDist").html(Math.round(vm.hackDist/100)/10 + "km");
+
                 startAnimation();
 
                 // new google.maps.DirectionsRenderer({
@@ -210,10 +229,6 @@ function MapIndexController($http, cheatsService, $window) {
             } else
                 $("#error").append("Unable to retrieve your route<br />");
         });
-    }
-
-    function yes() {
-        return vm.origTime;
     }
 
     function drawCheats(cheats) {
