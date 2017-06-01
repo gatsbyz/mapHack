@@ -28,9 +28,9 @@
           
           <% if user_signed_in? %>
           <ul class="navCustom nav navbar-nav">
-            <li><%= link_to 'About', root_path %></li>
+            <li><a href="/home">News Feed</a></li>
             <li><a href="/map">View Map</a></li>
-            <li><a class="logotype" href="/">MAP HACK</a></li>
+            <li><%= link_to 'MAP HACK', root_path, :class => "logotype" %></li>
             <li><a href="/cheat/new">Add A Cheat </a></li>
             
             <li class="dropdown">
