@@ -6,6 +6,15 @@
 <form id="calculate-route" name="calculate-route" action="#" method="get">
 
     <div class="destination-wrap">
+
+        <div class="form-wrap" id="floating-panel">
+          <select class="form-control" id="mode">
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+          </select>
+        </div>
         <div class="form-wrap">
           <!--<label class="labels" for="from">From:</label>-->
           <input class="form-control" type="text" id="from" name="from" required="required" placeholder="From" size="30" />

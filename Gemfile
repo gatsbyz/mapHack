@@ -37,6 +37,7 @@ gem 'angular_rails_csrf'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootswatch-rails'
 gem 'autoprefixer-rails'
+gem 'bootstrap-select-wrapper-rails'
 # ----------------------
 
 # Use Capistrano for deployment
