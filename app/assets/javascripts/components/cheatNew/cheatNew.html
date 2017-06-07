@@ -5,14 +5,17 @@
 
 <div id="cheat-new-page">
 	<form >
+		<div class="form-wrap" id="floating-panel">
+          <select class="form-control" id="mode"> <!--TODO: need to support multiple-->
+            <option value="DRIVING">Driving</option>
+            <option value="WALKING">Walking</option>
+            <option value="BICYCLING">Bicycling</option>
+            <option value="TRANSIT">Transit</option>
+          </select>
+        </div>
+
 		<div class="title">Title:</div>
-		<textarea id="cheat-textarea" rows="10" cols="60" ng-model="$ctrl.cheat.description" placeholder="Write details about this hacked route."></textarea>
-		<!--   <label>From</label>
-		<input type="checkbox" ng-model="$ctrl.cheat.from"></input>
-		<br/>
-		<label>To</label>
-		<input type="checkbox" ng-model="$ctrl.cheat.to">
-		<br/> -->
+		<textarea id="cheat-textarea" rows="10" cols="60" ng-model="$ctrl.cheat.description" placeholder="Write details about this hacked route."/>
 		<br>
 		<button class="btn btn-default btn-sm" ng-click="$ctrl.saveCheat()">Submit</button>
 	</form>

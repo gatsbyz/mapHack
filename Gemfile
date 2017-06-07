@@ -37,9 +37,10 @@ gem 'angular-ui-router-rails'
 gem 'angular-rails-templates'
 
 # BOOTSTRAP ADDED ------
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'autoprefixer-rails'
+gem 'rails-bootstrap-select'
 # ----------------------
 
 # Use Capistrano for deployment
