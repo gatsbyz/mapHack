@@ -38,14 +38,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    angular-rails-templates (1.0.2)
-      railties (>= 4.2, < 6)
-      sprockets (>= 3.0, < 5)
-      tilt
-    angular-ui-router-rails (0.2.15)
     angular_rails_csrf (2.1.1)
       railties (>= 3, < 5.2)
-    angularjs-rails (1.6.2)
     arel (7.1.4)
     autoprefixer-rails (7.1.1)
       execjs
@@ -180,10 +174,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  angular-rails-templates
-  angular-ui-router-rails
   angular_rails_csrf
-  angularjs-rails
   autoprefixer-rails
   bootstrap-sass
   bootswatch-rails
