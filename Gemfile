@@ -31,14 +31,15 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
-# gem 'angularjs-rails'
+gem 'angularjs-rails'
 gem 'angular_rails_csrf'
+gem 'angular-rails-templates'
+# gem 'sprockets', '2.12.3'
 
 # BOOTSTRAP ADDED ------
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootswatch-rails'
 gem 'autoprefixer-rails'
-gem 'rails-bootstrap-select'
 # ----------------------
 
 # Use Capistrano for deployment
