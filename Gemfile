@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 # gem 'angularjs-rails'
 gem 'angular_rails_csrf'
-gem 'angular-rails-templates'
+# gem 'angular-rails-templates'
 # gem 'sprockets', '2.12.3'
 
 # BOOTSTRAP ADDED ------
