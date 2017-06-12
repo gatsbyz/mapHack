@@ -21,7 +21,7 @@
 //= require_tree .
 
 angular
-  .module('mapHack', ['ui.router'])
+  .module('mapHack', ['ui.router', 'templates'])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
