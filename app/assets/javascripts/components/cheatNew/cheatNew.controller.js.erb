@@ -2,9 +2,9 @@ angular
     .module('mapHack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$state','$http', 'cheatsService'];
+CheatNewController.$inject = ['$state', 'cheatsService'];
 
-function CheatNewController($state, $http, cheatsService) {
+function CheatNewController($state, cheatsService) {
  	var vm = this;
 
     vm.cheat = {
@@ -14,7 +14,7 @@ function CheatNewController($state, $http, cheatsService) {
         end_point_lat: 0,
         end_point_long: 0,
         //zipcode: 0,
-        mode:'',
+        mode:''
     };
     
 	initAutocomplete();
