@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
-gem 'angularjs-rails'
+# gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'angular-rails-templates'
 # gem 'sprockets', '2.12.3'
