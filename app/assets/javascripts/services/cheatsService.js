@@ -2,9 +2,9 @@ angular
   .module('mapHack')
   .factory('cheatsService', cheatsService);
 
-cheatsService.$inject = ['$http', '$stateParams'];
+cheatsService.$inject = ['$http'];
 
-function cheatsService($http, $stateParams) {
+function cheatsService($http) {
   var factory = {};
 
   factory.getCheats = function() {
