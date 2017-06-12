@@ -95,6 +95,7 @@ function MapIndexController($http, cheatsService, $window) {
 
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
+                console.log(1);
             }
             else
                 $("#error").append("Unable to retrieve your route<br />");
@@ -124,6 +125,10 @@ function MapIndexController($http, cheatsService, $window) {
                 var point = response.routes[ 0 ].legs[ 0 ];
                 vm.hackTime += point.duration.value;
                 vm.hackDist += point.distance.value;
+                console.log(2);
+
+                $("#hackTime").html(Math.round(vm.hackTime/60)+" mins");
+                $("#hackDist").html(Math.round(vm.hackDist/100)/10 + " km");
 
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
@@ -227,8 +232,6 @@ function MapIndexController($http, cheatsService, $window) {
                 console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
                 //        createMarker(endLocation.latlng,"end",endLocation.address,"red");
                 //map.setZoom(18);
-                $("#hackTime").html(Math.round(vm.hackTime/60)+"mins");
-                $("#hackDist").html(Math.round(vm.hackDist/100)/10 + "km");
 
                 startAnimation();
 
@@ -245,9 +248,15 @@ function MapIndexController($http, cheatsService, $window) {
         cheats.forEach(function(cheat,index) {
             var latLng = {lat: cheat.start_point_lat, lng: cheat.start_point_long};
             var latLng2 = {lat: cheat.end_point_lat, lng: cheat.end_point_long};
+            var icon = {
+                url: 'http://i.imgur.com/ba7xhjE.png?2',
+                scaledSize: new google.maps.Size(20, 20)
+            };
+
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
+                icon: icon
             });
 
             var infowindow = new google.maps.InfoWindow({
