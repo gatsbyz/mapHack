@@ -2,10 +2,10 @@ angular
   .module('mapHack')
   .controller('MapIndexController', MapIndexController);
 
-MapIndexController.$inject = ['$http', 'cheatsService', '$window'];
+MapIndexController.$inject = ['cheatsService', '$window'];
 
 
-function MapIndexController($http, cheatsService, $window) {
+function MapIndexController(cheatsService, $window) {
  	var vm = this;
 
     var map = [];

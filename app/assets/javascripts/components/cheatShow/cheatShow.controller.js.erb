@@ -2,9 +2,9 @@ angular
     .module('mapHack')
     .controller('CheatShowController', CheatShowController);
 
-CheatShowController.$inject = ['$http','cheatsService', '$stateParams'];
+CheatShowController.$inject = ['cheatsService', '$stateParams'];
 
-function CheatShowController($http, cheatsService, $stateParams) {
+function CheatShowController(cheatsService, $stateParams) {
 
  	var vm = this;
  	var map = {};
