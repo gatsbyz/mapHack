@@ -11,9 +11,9 @@
  * It is generally better to create a new file per style scope.
  *
 
- *= require_tree ../javascripts/components/
- *= require_tree .
  *= require_self
+ *= require_tree .
+ *= require_tree ../javascripts/components/
  */
 
 /*font-family: 'Bungee', cursive;
