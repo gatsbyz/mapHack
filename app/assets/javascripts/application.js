@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require angular
+//= require angular/angular
 //= require angular-ui-router/release/angular-ui-router
 
 //= require bootstrap
@@ -20,7 +20,7 @@
 //= require_tree .
 
 angular
-  .module('mapHack', ['ui.router'])
+  .module('maphack', ['ui.router'])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {

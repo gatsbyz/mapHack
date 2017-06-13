@@ -1,6 +1,5 @@
 class User < ApplicationRecord
-	has_many :cheats
-	has_many :comments
+has_many :cheats
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

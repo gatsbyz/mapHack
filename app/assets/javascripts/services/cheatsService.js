@@ -1,5 +1,5 @@
 angular
-  .module('mapHack')
+  .module('maphack')
   .factory('cheatsService', cheatsService);
 
 cheatsService.$inject = ['$http'];
