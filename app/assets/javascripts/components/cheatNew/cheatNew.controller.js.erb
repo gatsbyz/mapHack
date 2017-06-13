@@ -132,7 +132,6 @@ function CheatNewController($state, cheatsService) {
                 vm.cheat.end_point_long = element.position.lng();
             } 
         });
-        console.log(vm.cheat);
 
         cheatsService
           .createCheat(vm.cheat)
@@ -142,6 +141,6 @@ function CheatNewController($state, cheatsService) {
             } else {
               alert('Something went wrong. check your inputs again');
             };
-          });
-      };
+        });
+    };
 }
