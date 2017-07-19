@@ -23,7 +23,7 @@
 
 angular
   .module('maphack', ['ui.router'])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -50,4 +50,4 @@ angular
       enabled: true,
       requireBase: false
     });
-  });
+  }]);
