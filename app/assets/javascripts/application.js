@@ -40,6 +40,10 @@ angular
       .state('cheatShow', {
         url: '/cheat/:id',
         component: 'cheatShow'
+      })
+      .state('profileShow', {
+        url: '/user/:id',
+        component: 'profileShow'
       });
 
     // default fall back route
