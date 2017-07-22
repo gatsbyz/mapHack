@@ -15,6 +15,7 @@
 
 //= require angular/angular
 //= require angular-ui-router/release/angular-ui-router
+//= require angularjs-dropdown-multiselect
 
 //= require bootstrap
 
@@ -22,7 +23,7 @@
 //= require_tree .
 
 angular
-  .module('maphack', ['ui.router'])
+  .module('maphack', ['ui.router', 'angularjs-dropdown-multiselect'])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {

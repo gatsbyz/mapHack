@@ -2,9 +2,9 @@ angular
     .module('maphack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$state', 'cheatsService'];
+CheatNewController.$inject = ['$state', '$scope', 'cheatsService'];
 
-function CheatNewController($state, cheatsService) {
+function CheatNewController($state, $scope, cheatsService) {
     var vm = this;
 
     vm.cheat = {
@@ -23,6 +23,10 @@ function CheatNewController($state, cheatsService) {
     vm.saveCheat = saveCheat;
 
     var markersArray = [];
+
+    vm.example13model = [];
+    vm.example13data = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
+    $scope.example13settings = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
 
     function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {

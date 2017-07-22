@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.4",
-    "angular-ui-router": "^1.0.0-rc.1"
+    "angular-ui-router": "^1.0.0-rc.1",
+    "angularjs-dropdown-multiselect": "^2.0.0-beta.10"
   }
 }

@@ -4,23 +4,15 @@
 <button id="reset" class="btn btn-default btn-sm" ng-click="$ctrl.clearOverlays()">Reset Markers</button>
 
 <div id="cheat-new-page">
-	<form >
+	<form>
 		<div id="floating-panel">
 			<div class="title">Title:</div>
+			<div ng-dropdown-multiselect="" options="$ctrl.example13data" selected-model="$ctrl.example13model" extra-settings="$ctrl.example13settings"></div>
 			<textarea id="cheat-textarea" rows="10" cols="60" ng-model="$ctrl.cheat.description" placeholder="Write details about this hacked route.">
 			</textarea>
 			<br>
 			<button class="btn btn-default btn-sm" ng-click="$ctrl.saveCheat()">Submit</button>
 		</div>
-
-		<div class="form-wrap2" id="floating-panel">
-			<select class="form-control" id="mode" ng-model="$ctrl.cheat.mode"> <!--TODO: need to support multiple-->
-				<option value="DRIVING">Driving</option>
-				<option value="WALKING">Walking</option>
-				<option value="BICYCLING">Bicycling</option>
-				<option value="TRANSIT">Transit</option>
-			</select>
-        </div>
 	</form>
 </div>
 
