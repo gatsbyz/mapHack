@@ -2,9 +2,9 @@ angular
     .module('maphack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$state', '$scope', 'cheatsService'];
+CheatNewController.$inject = ['$state', 'cheatsService'];
 
-function CheatNewController($state, $scope, cheatsService) {
+function CheatNewController($state, cheatsService) {
     var vm = this;
 
     vm.cheat = {
@@ -13,8 +13,7 @@ function CheatNewController($state, $scope, cheatsService) {
         start_point_long: 0,
         end_point_lat: 0,
         end_point_long: 0,
-        //zipcode: 0,
-        mode:''
+        route_type:[]
     };
     
     initAutocomplete();
@@ -24,9 +23,9 @@ function CheatNewController($state, $scope, cheatsService) {
 
     var markersArray = [];
 
-    vm.example13model = [];
-    vm.example13data = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
-    $scope.example13settings = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
+    vm.routeTypeModel = [{id: "DRIVING", label: "Driving"}];
+    vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
+    vm.routeTypeSetting = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
 
     function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -137,6 +136,10 @@ function CheatNewController($state, $scope, cheatsService) {
             } 
         });
 
+        vm.routeTypeModel.forEach(function(element,index) {
+            vm.cheat.route_type.push(element.id);
+        });
+
         cheatsService
           .createCheat(vm.cheat)
           .then(function(res) {
@@ -146,5 +149,5 @@ function CheatNewController($state, $scope, cheatsService) {
               alert('Something went wrong. check your inputs again');
             };
         });
-    };
+    }
 }

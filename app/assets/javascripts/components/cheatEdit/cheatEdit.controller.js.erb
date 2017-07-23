@@ -1,0 +1,123 @@
+angular
+    .module('maphack')
+    .controller('CheatEditController', CheatEditController);
+
+CheatEditController.$inject = ['$state', '$stateParams', 'cheatsService'];
+
+function CheatEditController($state, $stateParams, cheatsService) {
+    var vm = this;
+    var map = {};
+
+    vm.cheat = null;
+
+    vm.routeTypeModel = [];
+    vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
+    vm.routeTypeSetting = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
+
+
+    onLoad();
+
+    function onLoad() {
+        cheatsService
+            .getCheat($stateParams.id)
+            .then(function(res){
+                console.log(res)
+                vm.cheat = res.data;
+                initAutocomplete();
+                drawCheatEndPoints(vm.cheat);
+                drawCheatPath(vm.cheat);
+        });
+    }
+
+    var cheatMarkersArray = [];
+
+    vm.clearOverlays = clearOverlays;
+    vm.editCheat = editCheat;
+
+    var markersArray = [];
+
+    
+    function initAutocomplete() {
+
+        console.log(vm.cheat)
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: vm.cheat.start_point_lat, lng: vm.cheat.start_point_long},
+            zoom: 18,
+            mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var input2 = document.getElementById('reset');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
+
+        vm.cheat.route_type.forEach(function(element,index) {
+            vm.routeTypeModel.push({id:element})
+        });
+    }
+
+    function drawCheatPath(cheat) {
+        var flightPath = new google.maps.Polyline({
+          path: [{lat: cheat.start_point_lat, lng: cheat.start_point_long},{lat: cheat.end_point_lat, lng: cheat.end_point_long}],
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+    }
+
+    function drawCheatEndPoints(cheat) {
+        var latLng = {lat: cheat.start_point_lat, lng: cheat.start_point_long};
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+
+        cheatMarkersArray.push(marker);
+
+        latLng = {lat: cheat.end_point_lat, lng: cheat.end_point_long};
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+
+        cheatMarkersArray.push(marker);
+    }
+
+    function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++ ) {
+            markersArray[i].setMap(null);
+        }
+        markersArray.length = 0;
+    }
+
+    function editCheat() {
+
+        markersArray.forEach(function(element,index) {
+            if (index == 0) {
+                console.log(element.position);
+                vm.cheat.start_point_lat = element.position.lat();
+                vm.cheat.start_point_long = element.position.lng();
+                // vm.cheat.zipcode = element.address_components[-1].long_name
+            } else {
+                vm.cheat.end_point_lat = element.position.lat();
+                vm.cheat.end_point_long = element.position.lng();
+            } 
+        });
+
+        cheatsService
+          .updateCheat(vm.cheat)
+          .then(function(res) {
+            if(res.status == 201) {
+              $state.go('cheatShow', {id: res.data.id}) // cheat detail page
+            } else {
+              alert('Something went wrong. check your inputs again');
+            };
+        });
+    };
+}

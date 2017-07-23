@@ -42,6 +42,10 @@ angular
         url: '/cheat/:id',
         component: 'cheatShow'
       })
+      .state('cheatEdit', {
+        url: '/cheat/:id/edit',
+        component: 'cheatEdit'
+      })
       .state('profileShow', {
         url: '/user/:id',
         component: 'profileShow'

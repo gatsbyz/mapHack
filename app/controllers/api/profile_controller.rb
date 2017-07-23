@@ -4,3 +4,5 @@ class Api::ProfileController < ApplicationController
 		@currentUser = current_user
 		render json: {currentUser: @currentUser}
 	end
+	
+end

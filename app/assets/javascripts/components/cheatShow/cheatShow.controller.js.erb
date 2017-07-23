@@ -2,13 +2,15 @@ angular
     .module('maphack')
     .controller('CheatShowController', CheatShowController);
 
-CheatShowController.$inject = ['cheatsService', '$stateParams'];
+CheatShowController.$inject = ['cheatsService', '$stateParams', '$state'];
 
-function CheatShowController (cheatsService, $stateParams) {
+function CheatShowController (cheatsService, $stateParams, $state) {
 
  	var vm = this;
  	var map = {};
     vm.cheat = [];
+
+    vm.editCheat = editCheat;
 
     var cheatMarkersArray = [];
 
@@ -34,6 +36,10 @@ function CheatShowController (cheatsService, $stateParams) {
             zoom: 18,
             mapTypeId: 'roadmap'
         });
+
+
+        var input = document.getElementById('reset');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
     }
 
     function drawCheatPath(cheat) {
@@ -64,5 +70,10 @@ function CheatShowController (cheatsService, $stateParams) {
         });
 
         cheatMarkersArray.push(marker);
+    }
+
+    function editCheat() {
+        console.log("A");
+        $state.go('cheatEdit', {id: $stateParams.id}) 
     }
 }
