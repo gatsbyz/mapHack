@@ -1,6 +1,6 @@
 angular
     .module('maphack')
-    .controller('ProfileShowController', CheatShowController);
+    .controller('ProfileShowController', ProfileShowController);
 
 ProfileShowController.$inject = ['profileService', '$stateParams'];
 
@@ -8,10 +8,17 @@ function ProfileShowController (profileService, $stateParams) {
 
  	var vm = this;
 
+ 	vm.currentUser = {};
+
 	onLoad();
 
     function onLoad() {
-      
+        profileService
+            .getUser($stateParams.id)
+            .then(function(res){
+                console.log(res);
+                vm.currentUser = res.data.currentUser;
+        });
     }
 
 	

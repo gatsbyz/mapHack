@@ -12,6 +12,10 @@ Rails.application.routes.draw do
       put '/cheat/:id' => 'cheats#update'
       delete '/cheat/:id' => 'cheats#destroy'
     end
+
+    namespace :api do
+      get '/user/:id' => 'profile#show'
+    end
  
   	root to: 'client#index'
 	get '*path', to: 'client#index'

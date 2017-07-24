@@ -36,8 +36,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/user/1">View Profile</a></li>
-                <li><a href="#">Your Hacks</a></li>
+                <li><a ui-sref="profileShow({id:<%= current_user.id%>})">View Profile</a></li>
+                <li><a href="#">My Hacks</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Settings</a></li>
                 <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete', target: '_self' %></li>

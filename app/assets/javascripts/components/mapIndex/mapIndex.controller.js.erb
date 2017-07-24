@@ -40,7 +40,7 @@ function MapIndexController(cheatsService, $window) {
             .then(function(res){
                 console.log(res);
                 vm.cheats = res.data.cheats;
-                vm.currentUser = res.data.currentUser.id;
+                vm.currentUser = res.data.currentUser;
                 vm.userArray = res.data.user_array;
                 drawCheats(vm.cheats);
         });
