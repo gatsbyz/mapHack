@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     	get '/map' => 'cheats#index'
     	post '/cheat' => 'cheats#create'
       get '/cheat/:id' => 'cheats#show'
+      put '/cheat/:id' => 'cheats#update'
       delete '/cheat/:id' => 'cheats#destroy'
     end
  

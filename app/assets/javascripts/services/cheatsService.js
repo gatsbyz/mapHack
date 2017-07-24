@@ -17,9 +17,9 @@ function cheatsService($http) {
       .get('/api/cheat/' + id);
   }
 
-  factory.updateCheat = function(id) {
+  factory.updateCheat = function(id, newCheat) {
     return $http
-      .put('/api/cheat/' + id);
+      .put('/api/cheat/' + id, newCheat);
   }
 
   factory.createCheat = function(newCheat) {

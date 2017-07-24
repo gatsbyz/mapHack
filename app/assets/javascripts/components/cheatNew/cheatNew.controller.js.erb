@@ -24,7 +24,7 @@ function CheatNewController($state, $scope, cheatsService) {
     var markersArray = [];
 
     vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"}];
-    vm.routeTypeModel = [vm.routeTypeData[0], vm.routeTypeData[2]];
+    vm.routeTypeModel = [];
     vm.routeTypeSettings = {};
 
     function initAutocomplete() {
@@ -126,7 +126,6 @@ function CheatNewController($state, $scope, cheatsService) {
 
         markersArray.forEach(function(element,index) {
             if (index == 0) {
-                console.log(element.position);
                 vm.cheat.start_point_lat = element.position.lat();
                 vm.cheat.start_point_long = element.position.lng();
                 // vm.cheat.zipcode = element.address_components[-1].long_name

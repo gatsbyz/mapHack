@@ -27,6 +27,16 @@ class Api::CheatsController < ApplicationController
 		end
     end
 
+	def update
+	  	@cheat = current_user.cheats.find(params[:id])
+
+		if @cheat.update(cheat_params)
+		      render json: @cheat, status: :ok
+		    else
+		      render json: @cheat.errors, status: :unprocessable_entity
+		    end
+    end
+
     def destroy
     @cheat = current_user.cheats.find(params[:id])
     @cheat.destroy

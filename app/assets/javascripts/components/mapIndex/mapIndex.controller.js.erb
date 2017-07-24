@@ -38,7 +38,7 @@ function MapIndexController(cheatsService, $window) {
         cheatsService
             .getCheats()
             .then(function(res){
-                console.log(res)
+                console.log(res);
                 vm.cheats = res.data.cheats;
                 vm.currentUser = res.data.currentUser.id;
                 vm.userArray = res.data.user_array;
@@ -95,7 +95,6 @@ function MapIndexController(cheatsService, $window) {
 
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 directionsDisplay.setDirections(response);
-                console.log(1);
             }
             else
                 $("#error").append("Unable to retrieve your route<br />");
@@ -125,7 +124,6 @@ function MapIndexController(cheatsService, $window) {
                 var point = response.routes[ 0 ].legs[ 0 ];
                 vm.hackTime += point.duration.value;
                 vm.hackDist += point.distance.value;
-                console.log(2);
 
                 $("#hackTime").html(Math.round(vm.hackTime/60)+" mins");
                 $("#hackDist").html(Math.round(vm.hackDist/100)/10 + " km");
