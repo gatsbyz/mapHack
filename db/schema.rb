@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723055528) do
+ActiveRecord::Schema.define(version: 20170723173250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cheats", force: :cascade do |t|
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.text     "description"
     t.float    "start_point_lat"
     t.float    "start_point_long"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20170723055528) do
     t.float    "end_point_long"
     t.integer  "user_id"
     t.integer  "rating"
-    t.string   "route_type",       default: [],              array: true
+    t.string   "route_type",                    array: true
   end
 
   create_table "users", force: :cascade do |t|

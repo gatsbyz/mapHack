@@ -2,6 +2,9 @@
 <button id="reset" class="btn btn-default btn-sm" ng-click="$ctrl.editCheat()">Edit</button>
 
 <div class="cheat-wrap">
-	<p> {{$ctrl.cheat.route_type}} </p>
+	<div class="route-type">
+		<div>Route Type:</div>
+		<div> {{$ctrl.cheat.route_type}} </div>
+	</div>
 	<p> {{$ctrl.cheat.description}} </p>
 </div>

@@ -38,7 +38,7 @@ class Api::CheatsController < ApplicationController
 
 	def cheat_params
 		params.require(:cheat)
-			.permit(:description, :start_point_lat, :start_point_long, :end_point_lat, :end_point_long)
+			.permit(:description, :start_point_lat, :start_point_long, :end_point_lat, :end_point_long, :route_type)
 			.merge(user_id: current_user.id)
 	end
 end

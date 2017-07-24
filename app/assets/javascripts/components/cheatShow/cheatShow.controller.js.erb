@@ -37,7 +37,6 @@ function CheatShowController (cheatsService, $stateParams, $state) {
             mapTypeId: 'roadmap'
         });
 
-
         var input = document.getElementById('reset');
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
     }
@@ -73,7 +72,6 @@ function CheatShowController (cheatsService, $stateParams, $state) {
     }
 
     function editCheat() {
-        console.log("A");
         $state.go('cheatEdit', {id: $stateParams.id}) 
     }
 }

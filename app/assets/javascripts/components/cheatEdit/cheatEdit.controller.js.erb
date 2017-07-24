@@ -10,10 +10,9 @@ function CheatEditController($state, $stateParams, cheatsService) {
 
     vm.cheat = null;
 
-    vm.routeTypeModel = [];
     vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
-    vm.routeTypeSetting = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
-
+    vm.routeTypeModel = [vm.routeTypeData[0], vm.routeTypeData[2]];
+    vm.routeTypeSetting = {} //{ smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; }}
 
     onLoad();
 
@@ -23,6 +22,7 @@ function CheatEditController($state, $stateParams, cheatsService) {
             .then(function(res){
                 console.log(res)
                 vm.cheat = res.data;
+                fetchRouteType(res)
                 initAutocomplete();
                 drawCheatEndPoints(vm.cheat);
                 drawCheatPath(vm.cheat);
@@ -36,7 +36,26 @@ function CheatEditController($state, $stateParams, cheatsService) {
 
     var markersArray = [];
 
-    
+    function fetchRouteType(res) {   
+        var item = null;
+            res.data.route_type.forEach(function(element,index) {
+                switch (element.id) {
+                    case "DRIVING":
+                        vm.routeTypeData.push(vm.routeTypeData[0]);
+                        break;
+                    case "WALKING":
+                        vm.routeTypeData.push(vm.routeTypeData[1]);
+                        break;
+                    case "BICYCLING":
+                        vm.routeTypeData.push(vm.routeTypeData[2]);
+                        break;
+                    case "TRANSIT":
+                        vm.routeTypeData.push(vm.routeTypeData[3]);
+                }
+            });
+        console.log(vm.routeTypeData);
+    }
+
     function initAutocomplete() {
 
         console.log(vm.cheat)
@@ -53,10 +72,6 @@ function CheatEditController($state, $stateParams, cheatsService) {
 
         var input2 = document.getElementById('reset');
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
-
-        vm.cheat.route_type.forEach(function(element,index) {
-            vm.routeTypeModel.push({id:element})
-        });
     }
 
     function drawCheatPath(cheat) {

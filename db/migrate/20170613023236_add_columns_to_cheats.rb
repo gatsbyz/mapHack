@@ -7,6 +7,5 @@ class AddColumnsToCheats < ActiveRecord::Migration[5.0]
     add_column :cheats, :end_point_long, :float
     add_column :cheats, :user_id, :integer
     add_column :cheats, :rating, :integer
-    add_column :cheats, :email, :string
   end
 end

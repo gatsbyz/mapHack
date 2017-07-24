@@ -2,9 +2,9 @@ angular
     .module('maphack')
     .controller('CheatNewController', CheatNewController);
 
-CheatNewController.$inject = ['$state', 'cheatsService'];
+CheatNewController.$inject = ['$state', '$scope', 'cheatsService'];
 
-function CheatNewController($state, cheatsService) {
+function CheatNewController($state, $scope, cheatsService) {
     var vm = this;
 
     vm.cheat = {
@@ -23,9 +23,9 @@ function CheatNewController($state, cheatsService) {
 
     var markersArray = [];
 
-    vm.routeTypeModel = [{id: "DRIVING", label: "Driving"}];
-    vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
-    vm.routeTypeSetting = { smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; } };
+    vm.routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"}];
+    vm.routeTypeModel = [vm.routeTypeData[0], vm.routeTypeData[2]];
+    vm.routeTypeSettings = {};
 
     function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -133,12 +133,13 @@ function CheatNewController($state, cheatsService) {
             } else {
                 vm.cheat.end_point_lat = element.position.lat();
                 vm.cheat.end_point_long = element.position.lng();
-            } 
+            }
         });
 
         vm.routeTypeModel.forEach(function(element,index) {
-            vm.cheat.route_type.push(element.id);
+            vm.cheat.route_type+=(index==0?"{":",")+element.id;
         });
+        vm.cheat.route_type+="}"
 
         cheatsService
           .createCheat(vm.cheat)
