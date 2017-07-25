@@ -27,8 +27,12 @@ angular
   .module('maphack', ['ui.router', 'ngRoute', 'angularjs-dropdown-multiselect'])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider' ,function ($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
     $stateProvider
-      .state('home', {
+      .state('cheatIndex', {
         url: '/',
+        component: 'cheatIndex'
+      })
+      .state('home', {
+        url: '/home',
         component: 'homePage'
       })
       .state('mapIndex', {
