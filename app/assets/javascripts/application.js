@@ -54,8 +54,8 @@ angular
         component: 'profileShow'
       })
       .state('profileEdit', {
-        url: '/user/:id',
-        component: 'profileShow'
+        url: '/user/:id/edit',
+        component: 'profileEdit'
       })
       .state('userCheatIndex', {
         url: '/user/:id/cheat',

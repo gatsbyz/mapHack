@@ -8,28 +8,9 @@ UserCheatIndexController.$inject = ['cheatsService', '$stateParams', '$window'];
 function UserCheatIndexController(cheatsService, $stateParams, $window) {
  	var vm = this;
 
-    var map = [];
-
     vm.cheats = [];
     vm.currentUser = {};
-    vm.userArray = [];
     vm.deleteCheat = deleteCheat;
-
-    var mark= {};
-    var closestMarker = null;
-    var index = 0;
-
-    var cheatMarkersArray = [];
-    var cheatLatLng = [];
-    var eol = null; 
-
-    var polyline = null;
-    var poly2 = null;
-
-    vm.origTime = 0;
-    vm.origDist = 0;
-    vm.hackTime = 0;
-    vm.hackDist = 0;
 
     onLoad();
 
