@@ -5,10 +5,10 @@
 
 #### Path
 News Feed + MAP HACK (GET/)
-View Map (GET/map)
-Add Cheat (POST/cheat/new) -> Show Cheat (GET/cheat/id) -> Edit Check (PUT/cheat/id)
-View Profile (GET/user/id) -> Edit Profile (PUT/user/id)
-My Hacks (GET/cheat)
+View Map (/map[GET/api/cheat])
+Add Cheat (/cheat/new[POST/api/cheat]) -> Show Cheat (GET/cheat/:id) -> Edit Check (PUT/cheat/:id)
+View Profile (GET/user/:id[POST/api/user]) -> Edit Profile (/user/:id[PUT/api/user/:id])
+My Hacks (/user/:id/cheat[GET/api/cheat?userId])
 
 #### Stack Info
 ##### Ruby version

@@ -1,20 +1,27 @@
 class Api::CheatsController < ApplicationController
 
 	def index
-		@cheats = Cheat.all
-		@currentUser = current_user
-		user_array = []
-		@cheats.each { |x|
-			user_array.push(User.find(x.user_id))
-		}
-		render json: {cheats: @cheats, currentUser: @currentUser, user_array: user_array}
+		if params[:userId].blank?
+			@cheats = Cheat.all
+			@currentUser = current_user
+			user_array = []
+			@cheats.each { |x|
+				user_array.push(User.find(x.user_id))
+			}
+			render json: {cheats: @cheats, currentUser: @currentUser}
+		else
+			@user = User.find(params[:userId])
+    		@cheats = @user.cheats
+    		render json: {cheats: @cheats, currentUser: @currentUser, user_array: user_array}
+		end
+
+		
 		# render json: @cheats.to_json(include: :user)
 	end
 
 	def show
-		@cheat = Cheat.find_by_id(params[:id]) or not_found #includes comments + user name
+		@cheat = Cheat.find_by_id(params[:id]) #includes comments + user name
 		render json: @cheat.to_json(include: :user)
-    # render json: @posts.to_json(include: :user)
 	end
 
 	def create
@@ -31,10 +38,10 @@ class Api::CheatsController < ApplicationController
 	  	@cheat = current_user.cheats.find(params[:id])
 
 		if @cheat.update(cheat_params)
-		      render json: @cheat, status: :ok
-		    else
-		      render json: @cheat.errors, status: :unprocessable_entity
-		    end
+	      	render json: @cheat, status: :ok
+	    else
+	      	render json: @cheat.errors, status: :unprocessable_entity
+	    end
     end
 
     def destroy

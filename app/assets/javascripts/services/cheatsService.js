@@ -12,6 +12,11 @@ function cheatsService($http) {
       .get('/api/map');
   }
 
+  factory.getCheatsById = function(id) {
+    return $http
+      .get('/api/cheat?userId='+id);
+  }
+
   factory.getCheat = function(id) {
     return $http
       .get('/api/cheat/' + id);

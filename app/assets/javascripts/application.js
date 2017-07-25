@@ -16,6 +16,7 @@
 //= require angular/angular
 //= require angular-ui-router/release/angular-ui-router
 //= require angularjs-dropdown-multiselect
+//= require angular-route
 
 //= require bootstrap
 
@@ -23,8 +24,8 @@
 //= require_tree .
 
 angular
-  .module('maphack', ['ui.router', 'angularjs-dropdown-multiselect'])
-  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .module('maphack', ['ui.router', 'ngRoute', 'angularjs-dropdown-multiselect'])
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$routeProvider' ,function ($stateProvider, $urlRouterProvider, $locationProvider, $routeProvider) {
     $stateProvider
       .state('home', {
         url: '/',
@@ -45,10 +46,20 @@ angular
       .state('cheatEdit', {
         url: '/cheat/:id/edit',
         component: 'cheatEdit'
-      })
+      });
+
+      $stateProvider
       .state('profileShow', {
         url: '/user/:id',
         component: 'profileShow'
+      })
+      .state('profileEdit', {
+        url: '/user/:id',
+        component: 'profileShow'
+      })
+      .state('userCheatIndex', {
+        url: '/user/:id/cheat',
+        component: 'userCheatIndex'
       });
 
     // default fall back route

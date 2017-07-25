@@ -20,7 +20,7 @@ function CheatShowController (cheatsService, $stateParams, $state) {
         cheatsService
             .getCheat($stateParams.id)
             .then(function(res){
-                console.log(res)
+                if (!res.data) return $state.go('mapIndex');
                 vm.cheat = res.data;
                 initAutocomplete();
                 drawCheatEndPoints(vm.cheat);
