@@ -12,7 +12,7 @@ class Api::CheatsController < ApplicationController
 	end
 
 	def show
-		@cheat = Cheat.find(params[:id]) #includes comments + user name
+		@cheat = Cheat.find_by_id(params[:id]) or not_found #includes comments + user name
 		render json: @cheat.to_json(include: :user)
     # render json: @posts.to_json(include: :user)
 	end
