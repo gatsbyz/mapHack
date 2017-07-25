@@ -28,10 +28,10 @@
           
           <% if user_signed_in? %>
           <ul class="navCustom nav navbar-nav">
-            <li><a href="/home">News Feed</a></li>
-            <li><a href="/map">View Map</a></li>
+            <li><a ui-sref="home({id:<%= current_user.id%>})">News Feed</a></li>
+            <li><a ui-sref="mapIndex({id:<%= current_user.id%>})">View Map</a></li>
             <li><%= link_to 'MAP HACK', root_path, :class => "logotype" %></li>
-            <li><a href="/cheat/new">Add A Cheat </a></li>
+            <li><a ui-sref="cheatNew">Add A Cheat</a></li>
             
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>

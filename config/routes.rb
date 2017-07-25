@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     namespace :api do
     	get '/map' => 'cheats#index'
+      get 'cheat' => 'cheats'
     	post '/cheat' => 'cheats#create'
       get '/cheat/:id' => 'cheats#show'
       put '/cheat/:id' => 'cheats#update'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       get '/user/:id' => 'profile#show'
+      put '/user/:id' => 'profile#update'
     end
  
   	root to: 'client#index'
