@@ -14,8 +14,6 @@ class Api::CheatsController < ApplicationController
     		@cheats = @user.cheats
     		render json: {cheats: @cheats, currentUser: @currentUser, user_array: user_array}
 		end
-
-		
 		# render json: @cheats.to_json(include: :user)
 	end
 

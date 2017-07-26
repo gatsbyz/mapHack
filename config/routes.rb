@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {
-        sessions: 'users/sessions',
-        registrations: 'users/registrations'
-      }
+    devise_for :users, controllers: {
+      sessions: 'users/sessions',
+      registrations: 'users/registrations'
+    }
 
     namespace :api do
     	get '/map' => 'cheats#index'
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
     end
  
   	root to: 'client#index'
-	get '*path', to: 'client#index'
+    get '*path', to: 'client#index'
 end
