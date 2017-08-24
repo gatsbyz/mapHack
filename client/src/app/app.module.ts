@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap';
 import { DropdownModule } from 'ngx-dropdown';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { AppComponent } from './app.component';
 
@@ -16,9 +17,10 @@ import { AppComponent } from './app.component';
 	  HttpModule,
     RouterModule,
     CollapseModule,
-    DropdownModule
+    DropdownModule,
+    MultiselectDropdownModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

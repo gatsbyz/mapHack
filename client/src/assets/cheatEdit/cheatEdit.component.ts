@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Http }      from '@angular/http';
+import { IMultiSelectOption,
+          IMultiSelectSettings,
+          IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'cheatEdit',
@@ -14,8 +17,29 @@ export class CheatEditComponent {
 
   cheat = null;
 
+  // Default selection
+  optionsModel: number[];
+  myOptions: IMultiSelectOption[];
+  // Settings configuration
+  mySettings: IMultiSelectSettings = {
+      enableSearch: true,
+      checkedStyle: 'fontawesome',
+      buttonClasses: 'btn btn-default btn-block',
+      dynamicTitleMaxItems: 3,
+      displayAllSelectedText: true
+  };
+  // Text configuration
+  myTexts: IMultiSelectTexts = {
+      checkAll: 'Select all',
+      uncheckAll: 'Unselect all',
+      checked: 'item selected',
+      checkedPlural: 'items selected',
+      searchPlaceholder: 'Find',
+      defaultTitle: 'Select',
+      allSelected: 'All selected',
+  };
+
   routeTypeModel =[];
-  routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
   routeTypeSetting = {} //{ smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; }}
 
   cheatMarkersArray = [];
@@ -23,6 +47,19 @@ export class CheatEditComponent {
 
   constructor(private http:Http) {
     this.getUsers();
+  }
+
+  ngOnInit() {
+      this.myOptions = [
+        {id: "DRIVING", name: "Driving"},
+        {id: "WALKING", name: "Walking"},
+        {id: "BICYCLING", name: "Bicycling"},
+        {id: "TRANSIT", name: "Transit"}
+      ];
+
+  }
+  onChange() {
+      console.log(this.optionsModel);
   }
 
   getUsers() {
