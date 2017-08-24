@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Http }      from '@angular/http';
+import { IMultiSelectOption,
+          IMultiSelectSettings,
+          IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
+declare var google: any;
 
 @Component({
   selector: 'cheatNew',
@@ -7,146 +11,167 @@ import { Http }      from '@angular/http';
   styleUrls: ['./cheatNew.component.scss']
 })
 export class CheatNewComponent {
-  title = 'MAP HACK';
 
-  users = [];
-  map = {};
+    cheat: any = {
+        description:'',
+        start_point_lat: 0,
+        start_point_long: 0,
+        end_point_lat: 0,
+        end_point_long: 0,
+        route_type:[]
+    };
+    
 
-  cheat = null;
+    markersArray: Array<any> = [];
 
-  routeTypeModel =[];
-  routeTypeData = [ {id: "DRIVING", label: "Driving"}, {id: "WALKING", label: "Walking"}, {id: "BICYCLING", label: "Bicycling"}, {id: "TRANSIT", label: "Transit"} ];
-  routeTypeSetting = {} //{ smartButtonMaxItems: 4, smartButtonTextConverter: function(itemText, originalItem) { if (itemText === 'Jhon') { return 'Jhonny!'; } return itemText; }}
+    // Default selection
+    optionsModel: number[];
+    myOptions: IMultiSelectOption[];
+    // Settings configuration
+    mySettings: IMultiSelectSettings = {
+        enableSearch: true,
+        checkedStyle: 'fontawesome',
+        buttonClasses: 'btn btn-default btn-block',
+        dynamicTitleMaxItems: 3,
+        displayAllSelectedText: true
+    };
+    // Text configuration
+    myTexts: IMultiSelectTexts = {
+        checkAll: 'Select all',
+        uncheckAll: 'Unselect all',
+        checked: 'item selected',
+        checkedPlural: 'items selected',
+        searchPlaceholder: 'Find',
+        defaultTitle: 'Select',
+        allSelected: 'All selected',
+    };
 
-  cheatMarkersArray = [];
-  markersArray = [];  
+    initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 40.730610, lng: -73.935242},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
 
-  constructor(private http:Http) {
-    this.getUsers();
-  }
+        map.addListener('click', function(e) {
+            this.placeMarker(e.latLng, map);
+        });
 
-  getUsers() {
-    this.http.get('http://localhost:3000/users')
-             .subscribe(res => {
-               this.users = res.json().users;
-             });
-  }
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+        var input2 = document.getElementById('reset');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
 
-  onLoad();
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
 
-  onLoad() {
-      cheatsService
-          .getCheat($stateParams.id)
-          .then(function(res){
-              console.log(res);
-              vm.cheat = res.data;
-              initAutocomplete();
-              drawCheatEndPoints(vm.cheat);
-              drawCheatPath(vm.cheat);
-              fetchRouteType(vm.cheat);
-      });
-  }
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
 
-  fetchRouteType(cheat) {
-      cheat.route_type.forEach(function(element,index) {
-          switch (element) {
-              case "DRIVING":
-                  vm.routeTypeModel.push(vm.routeTypeData[0]);
-                  break;
-              case "WALKING":
-                  vm.routeTypeModel.push(vm.routeTypeData[1]);
-                  break;
-              case "BICYCLING":
-                  vm.routeTypeModel.push(vm.routeTypeData[2]);
-                  break;
-              case "TRANSIT":
-                  vm.routeTypeModel.push(vm.routeTypeData[3]);
-          }
-      });
-  }
+            if (places.length == 0) {
+                return;
+            };
 
-  initAutocomplete() {
-      map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: vm.cheat.start_point_lat, lng: vm.cheat.start_point_long},
-          zoom: 18,
-          mapTypeId: 'roadmap'
-      });
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+            markers = [];
 
-      // Create the search box and link it to the UI element.
-      var input = document.getElementById('pac-input');
-      var searchBox = new google.maps.places.SearchBox(input);
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
 
-      var input2 = document.getElementById('reset');
-      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input2);
-  }
+                var icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
 
-  drawCheatPath(cheat) {
-      var flightPath = new google.maps.Polyline({
-        path: [{lat: cheat.start_point_lat, lng: cheat.start_point_long},{lat: cheat.end_point_lat, lng: cheat.end_point_long}],
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
+                // Create a marker for each place.
+                markers.push(
+                    new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    })
+                );
 
-      flightPath.setMap(map);
-  }
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
 
-  drawCheatEndPoints(cheat) {
-      var latLng = {lat: cheat.start_point_lat, lng: cheat.start_point_long};
-      var marker = new google.maps.Marker({
-          position: latLng,
-          map: map,
-      });
+    placeMarker(latLng, map) {
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+        });
+        this.markersArray.push(marker);
+        //map.panTo(latLng);
+        //console.log(marker);
+    }
 
-      cheatMarkersArray.push(marker);
+    clearOverlays() {
+        for (var i = 0; i < this.markersArray.length; i++ ) {
+            this.markersArray[i].setMap(null);
+        }
+        this.markersArray.length = 0;
+    }
 
-      latLng = {lat: cheat.end_point_lat, lng: cheat.end_point_long};
-      var marker = new google.maps.Marker({
-          position: latLng,
-          map: map,
-      });
+    saveCheat() {
 
-      cheatMarkersArray.push(marker);
-  }
+        this.markersArray.forEach(function(element: any, index: number) {
+            if (index == 0) {
+                this.cheat.start_point_lat = element.position.lat();
+                this.cheat.start_point_long = element.position.lng();
+                // vm.cheat.zipcode = element.address_components[-1].long_name
+            } else {
+                this.cheat.end_point_lat = element.position.lat();
+                this.cheat.end_point_long = element.position.lng();
+            }
+        });
 
-  clearOverlays() {
-      for (var i = 0; i < markersArray.length; i++ ) {
-          markersArray[i].setMap(null);
-      }
-      markersArray.length = 0;
-  }
+        this.optionsModel.forEach(function(element: any, index: number) {
+            this.cheat.route_type+=(index==0?"{":",")+element.id;
+        });
+        this.cheat.route_type+="}"
 
-  editCheat() {
-      markersArray.forEach(function(element,index) {
-          if (index == 0) {
-              vm.cheat.start_point_lat = element.position.lat();
-              vm.cheat.start_point_long = element.position.lng();
-              // vm.cheat.zipcode = element.address_components[-1].long_name
-          } else {
-              vm.cheat.end_point_lat = element.position.lat();
-              vm.cheat.end_point_long = element.position.lng();
-          } 
-      });
+        // cheatsService
+        //   .createCheat(vm.cheat)
+        //   .then(function(res) {
+        //     if(res.status == 201) {
+        //       $state.go('cheatShow', {id: res.data.id}) // cheat detail page
+        //     } else {
+        //       alert('Something went wrong. check your inputs again');
+        //     };
+        // });
+    }
 
-      var route_type = [];
-      vm.routeTypeModel.forEach(function(element,index) {
-          route_type+=(index==0?"{":",")+element.id;
-      });
-      route_type+="}"
-      vm.cheat.route_type = route_type;
-
-      cheatsService
-        .updateCheat($stateParams.id, vm.cheat)
-        .then(function(res) {
-          if(res.status == 200) {
-              $state.go('cheatShow', {id: res.data.id})
-          } else {
-              alert('Something went wrong. check your inputs again');
-          };
-      });
-  };
+    ngInit() {
+      this.initAutocomplete();
+    }
 
 }

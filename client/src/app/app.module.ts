@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { CollapseModule } from 'ngx-bootstrap';
 import { DropdownModule } from 'ngx-dropdown';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 
@@ -18,7 +19,10 @@ import { AppComponent } from './app.component';
     RouterModule,
     CollapseModule,
     DropdownModule,
-    MultiselectDropdownModule
+    MultiselectDropdownModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDsqsFKBqzMawhlyQOJaJQcI807viZlHlk'
+    })
   ],
   providers: [],
   bootstrap: [ AppComponent ]

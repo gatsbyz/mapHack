@@ -1,7 +1,7 @@
 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 
-<div id="map"></div>
-<button id="reset" class="btn btn-default btn-sm" ng-click="$ctrl.clearOverlays()">Reset Markers</button>
+<div id='map'></div>
+<button id="reset" class="btn btn-default btn-sm" (click)="clearOverlays()">Reset Markers</button>
 
 <div id="cheat-new-page">
 	<form>
@@ -10,12 +10,11 @@
 			<div class="route-type">
 				<div>Route Type:</div>
 				<ss-multiselect-dropdown class="dropdown" [options]="myOptions" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
-				<div class="dropdown" ng-dropdown-multiselect="" options="$ctrl.routeTypeData" selected-model="$ctrl.routeTypeModel" extra-settings="$ctrl.routeTypeSetting"></div>
 			</div>
-			<textarea id="cheat-textarea" rows="10" cols="60" [ngModel]="$ctrl.cheat.description" placeholder="Write details about this hacked route.">
+			<textarea id="cheat-textarea" rows="10" cols="60" [ngModel]="cheat.description" placeholder="Write details about this hacked route.">
 			</textarea>
 			<br>
-			<button class="btn btn-default btn-sm" (click)="$ctrl.editCheat()">Submit</button>
+			<button class="btn btn-default btn-sm" (click)="editCheat()">Submit</button>
 		</div>
 	</form>
 </div>
