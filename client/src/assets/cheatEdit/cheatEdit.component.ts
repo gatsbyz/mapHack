@@ -14,7 +14,15 @@ export class CheatEditComponent {
   title: string = 'MAP HACK';
   users: Array<object>;
   map: any;
-  cheat: any;
+  //cheat: any;
+  cheat: any = {
+    description: 'abc',
+    start_point_lat: 0,
+    start_point_long:0,
+    end_point_lat: 0,
+    end_point_long: 0,
+    user_id: 0
+  }
 
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -41,8 +49,8 @@ export class CheatEditComponent {
       allSelected: 'All selected',
   };
 
- cheatMarkersArray: Array<object> = [];
-  markersArray: Array<object>= [];  
+ cheatMarkersArray: Array<any> = [];
+  markersArray: Array<any>= [];  
 
   constructor(private http:Http) {
     this.getUsers();
@@ -156,14 +164,15 @@ export class CheatEditComponent {
   }
 
   editCheat() {
-      this.markersArray.forEach(function(element: any,index) {
+      var c = this.cheat;
+      this.markersArray.forEach(function(element: any, index) {
           if (index == 0) {
-              this.cheat.start_point_lat = element.position.lat();
-              this.cheat.start_point_long = element.position.lng();
+              c.start_point_lat = element.position.lat();
+              c.start_point_long = element.position.lng();
               // vm.cheat.zipcode = element.address_components[-1].long_name
           } else {
-              this.cheat.end_point_lat = element.position.lat();
-              this.cheat.end_point_long = element.position.lng();
+              c.end_point_lat = element.position.lat();
+              c.end_point_long = element.position.lng();
           } 
       });
 

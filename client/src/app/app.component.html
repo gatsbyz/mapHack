@@ -18,10 +18,10 @@
       
         <% if user_signed_in? %>
         <ul class="navCustom nav navbar-nav">
-        <li><%= link_to 'Home', '/home' %></li> <!--root_path-->
-        <li><a ui-sref="mapIndex({id:<%= current_user.id%>})">View Map</a></li>
-        <li><a ui-sref="cheatIndex" class="logotype">MAP HACK</a></li>
-        <li><a ui-sref="cheatNew">Add A Cheat</a></li>
+        <li><a uiSref="homePage">Home</a></li> <!--root_path-->
+        <li><a uiSref="mapIndex" [uiParams]="{id:<%= current_user.id%>}">View Map</a></li>
+        <li><a uiSref="cheatIndex" class="logotype">MAP HACK</a></li>
+        <li><a uiSref="cheatNew">Add A Cheat</a></li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>

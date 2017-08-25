@@ -142,20 +142,20 @@ export class CheatNewComponent {
     }
 
     saveCheat() {
-
+        var c = this.cheat;
         this.markersArray.forEach(function(element: any, index: number) {
             if (index == 0) {
-                this.cheat.start_point_lat = element.position.lat();
-                this.cheat.start_point_long = element.position.lng();
+                c.start_point_lat = element.position.lat();
+                c.start_point_long = element.position.lng();
                 // vm.cheat.zipcode = element.address_components[-1].long_name
             } else {
-                this.cheat.end_point_lat = element.position.lat();
-                this.cheat.end_point_long = element.position.lng();
+                c.end_point_lat = element.position.lat();
+                c.end_point_long = element.position.lng();
             }
         });
 
         this.optionsModel.forEach(function(element: any, index: number) {
-            this.cheat.route_type+=(index==0?"{":",")+element.id;
+            c.route_type+=(index==0?"{":",")+element.id;
         });
         this.cheat.route_type+="}"
 
