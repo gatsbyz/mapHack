@@ -1,0 +1,49 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div *ngFor="let user of users">{{ user.name }}</div>
+
+<nav class="nav-section navbar navbar-default">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+        <% if user_signed_in? %>
+        <ul class="navCustom nav navbar-nav">
+        <li><a uiSref="homePage">Home</a></li> <!--root_path-->
+        <li><a uiSref="mapIndex" [uiParams]="{id:<%= current_user.id%>}">View Map</a></li>
+        <li><a uiSref="cheatIndex" class="logotype">MAP HACK</a></li>
+        <li><a uiSref="cheatNew">Add A Cheat</a></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a uiSref="profileShow" [uiParams]="{id:<%= current_user.id%>}">
+                    View Profile
+                </a>
+            </li>
+            <li>
+                <a uiSref="userCheatIndex" [uiParams]="{id:<%= current_user.id%>}">
+                    My Hacks
+                </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Settings</a></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete', target: '_self' %></li>
+          </ul>
+        </li>
+        </ul>
+        <% end %>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<router-outlet></router-outlet>

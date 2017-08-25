@@ -1,0 +1,21 @@
+<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
+<div id='map'></div>
+<button id="reset" class="btn btn-default btn-sm" (click)="clearOverlays()">Reset Markers</button>
+
+<div id="cheat-new-page">
+	<form>
+		<div id="floating-panel">
+			<div class="title">Title:</div>
+			<div class="route-type">
+				<div>Route Type:</div>
+				<ss-multiselect-dropdown class="dropdown" [options]="myOptions" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+			</div>
+			<textarea id="cheat-textarea" rows="10" cols="60" [ngModel]="cheat.description" placeholder="Write details about this hacked route.">
+			</textarea>
+			<br>
+			<button class="btn btn-default btn-sm" (click)="editCheat()">Submit</button>
+		</div>
+	</form>
+</div>
+

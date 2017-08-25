@@ -1,0 +1,27 @@
+#cheat-new-page {
+	display: flex;
+	width: 500px;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 10px;
+	margin: 0;
+}
+
+#cheat-textarea {
+	margin-top: 10px;
+	margin-right: 10px;
+	border-color: #EEEEEE;
+	border-width: 2px;
+}
+
+.title {
+	margin-top: 2px;
+}
+
+#reset {
+	margin: 10px;
+}
+
+.route-type div {
+	display: inline;
+}

@@ -1,0 +1,4 @@
+<button ui-sref="cheatNew" id="add-cheat" class="btn btn-default btn-sm">Add A Cheat</button>
+<ul *ngFor="let cheat of cheats">
+  <a uiSref="cheatShow" [uiParams]="({ id: cheat.id })"><li> {{ cheat.description }} </li></a>
+</ul>

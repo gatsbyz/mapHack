@@ -1,0 +1,31 @@
+import { TestBed, async } from '@angular/core/testing';
+import { CheatIndexComponent } from './cheatIndex.component';
+
+describe('CheatIndexComponent', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        CheatIndexComponent
+      ],
+    }).compileComponents();
+  }));
+
+  it('should create the app', async(() => {
+    const fixture = TestBed.createComponent(CheatIndexComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
+
+  it(`should have as title 'app'`, async(() => {
+    const fixture = TestBed.createComponent(CheatIndexComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('app');
+  }));
+
+  it('should render title in a h1 tag', async(() => {
+    const fixture = TestBed.createComponent(CheatIndexComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
+  }));
+});
