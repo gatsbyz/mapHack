@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/rails/webpacker.git
+  revision: f87565f483d529a64a39f7d7be8493b15df3e692
+  specs:
+    webpacker (2.0)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,6 +110,8 @@ GEM
     puma (3.10.0)
     rack (2.0.3)
     rack-cors (1.0.1)
+    rack-proxy (0.6.2)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.5)
@@ -198,6 +209,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webpacker!
 
 BUNDLED WITH
    1.14.6
