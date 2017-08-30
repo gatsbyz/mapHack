@@ -19,10 +19,7 @@ import { AppComponent } from './app.component';
     RouterModule,
     CollapseModule,
     DropdownModule,
-    MultiselectDropdownModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDsqsFKBqzMawhlyQOJaJQcI807viZlHlk'
-    })
+    MultiselectDropdownModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]
