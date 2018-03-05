@@ -1,0 +1,85 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.10.RELEASE'
+		mooworkVersion = '1.2.0'
+	}
+	repositories {
+		mavenCentral()
+        maven 
+        {
+            url "https://plugins.gradle.org/m2/"
+        }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    		classpath("com.moowork.gradle:gradle-node-plugin:${mooworkVersion}")
+    		classpath "io.spring.gradle:dependency-management-plugin:0.4.0.RELEASE"
+	}
+}
+
+plugins {
+	id 'io.franzbecker.gradle-lombok' version '1.11'
+	id 'java'
+	id "com.moowork.node" version "1.2.0"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.digitalgatsby'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+	
+repositories {
+	mavenCentral()
+	maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+node 
+{
+  version = "8.9.4"
+  download = true
+  nodeModulesDir = file("web")
+}
+
+lombok { // optional: values below are the defaults
+	version = "1.16.4"
+	sha256 = "3ca225ce3917eac8bf4b7d2186845df4e70dcdede356dca8537b6d78a535c91e"
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.9-rc'
+    
+    compile("com.h2database:h2")
+	
+  	compile('org.springframework.boot:spring-boot-devtools')
+  	
+  	compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+  	
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+}
+
+task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {
+  	group = 'build'
+  	description = 'Compile client side folder for development'
+  	args = ['run','buildDev']
+}
+
+task buildClientWatch(type: NpmTask, dependsOn: 'npmInstall') {
+  	group = 'application'
+  	description = "Build and watches the client side assets for rebuilding"
+  	args = ['run','buildWatch']
+}
+
+task buildClient(type:NpmTask, dependsOn:'npmInstall') {
+  	group = 'build'
+  	description = "Compile client side folder for production"
+  	args = ['run','build']
+}
+
+bootRun.dependsOn(buildClientDev)
+jar.dependsOn(buildClient)

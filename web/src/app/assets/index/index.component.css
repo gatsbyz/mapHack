@@ -1,0 +1,12 @@
+.topbar {
+	padding: .5em;
+}
+
+.main-block {
+	padding: .5em;
+	display: flex;
+}
+
+.client-block {
+	padding: .5em;
+}

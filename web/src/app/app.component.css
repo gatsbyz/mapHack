@@ -1,0 +1,23 @@
+main {
+	display: flex;
+	flex-flow: column;
+	height: 100%;
+}
+
+.homePage {
+	display: flex;
+	justify-content: center;
+}
+
+.homePage-image {
+	width: 600px;
+}
+
+.homePage-context {
+	width: 300px;
+}
+
+/* Active dropdown selections for Route Type - white */
+li.active a{ 
+	color: white;
+}

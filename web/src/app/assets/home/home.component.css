@@ -1,0 +1,11 @@
+.pet-info {
+	display: inline;
+}
+
+.card-header button {
+	text-decoration: none;
+}
+
+.card {
+	border-radius: 0;
+}

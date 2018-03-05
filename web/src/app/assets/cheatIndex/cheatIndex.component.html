@@ -1,0 +1,4 @@
+<button ui-sref="cheatNew" id="add-cheat" class="btn btn-default btn-sm">Add A Cheat</button>
+<ul ng-repeat="cheat in $ctrl.cheats">
+  <a routerLink="cheatShow({ id: cheat.id})"><li> {{ cheat.description }} </li></a>
+</ul>
