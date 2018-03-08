@@ -18,11 +18,8 @@ export class CheatNewComponent implements OnInit {
 
   cheat = {
     description: '',
-    startPointLat: 0,
-    startPointLong: 0,
-    endPointLat: 0,
-    endPointLong: 0,
-    routeType: []
+    routeType: [],
+    coordinate: []
   };
 
   markersArray = [];
@@ -161,15 +158,13 @@ export class CheatNewComponent implements OnInit {
 
   saveCheat() {
     this.markersArray.forEach(function(element, index) {
-      if (index === 0) {
-        this.cheat.startPointLat = element.position.lat();
-        this.cheat.startPointLong = element.position.lng();
-        // vm.cheat.zipcode = element.address_components[-1].long_name
-      } else {
-        this.cheat.endPointLat = element.position.lat();
-        this.cheat.endPointLong = element.position.lng();
-      }
+      this.cheat.coordinate.push({
+        latitude: element.position.lat(),
+        longitude: element.position.lng(),
+        orderNumber: index
+      });
     }, this);
+    console.log(this.cheat.coordinate);
     console.log(this.routeTypeModel);
     this.routeTypeModel.forEach(function(element, index) {
       this.cheat.routeType.push(element); // {'description' : element.id}

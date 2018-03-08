@@ -1,3 +1,4 @@
+import { Coordinate } from './coordinate';
 export class Cheat {
   id: number;
   description: string;
@@ -6,6 +7,7 @@ export class Cheat {
   endPointLat: number;
   endPointLong: number;
   routeType: string[];
+  coordinate: Coordinate[];
   createdAt: Date;
   updatedAt: Date;
 
@@ -17,6 +19,7 @@ export class Cheat {
     this.endPointLat = cheatInfo.endPointLat;
     this.endPointLong = cheatInfo.endPointLong;
     this.routeType = cheatInfo.routeType;
+    this.coordinate = cheatInfo.coordinate;
     this.createdAt = cheatInfo.createdAt;
     this.updatedAt = cheatInfo.updatedAt;
   }
