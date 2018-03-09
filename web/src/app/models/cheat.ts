@@ -2,10 +2,6 @@ import { Coordinate } from './coordinate';
 export class Cheat {
   id: number;
   description: string;
-  startPointLat: number;
-  startPointLong: number;
-  endPointLat: number;
-  endPointLong: number;
   routeType: string[];
   coordinate: Coordinate[];
   createdAt: Date;
@@ -14,10 +10,6 @@ export class Cheat {
   constructor(cheatInfo: any) {
     this.id = cheatInfo.id;
     this.description = cheatInfo.description;
-    this.startPointLat = cheatInfo.startPointLat;
-    this.startPointLong = cheatInfo.startPointLong;
-    this.endPointLat = cheatInfo.endPointLat;
-    this.endPointLong = cheatInfo.endPointLong;
     this.routeType = cheatInfo.routeType;
     this.coordinate = cheatInfo.coordinate;
     this.createdAt = cheatInfo.createdAt;

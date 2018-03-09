@@ -39,10 +39,6 @@ public class Cheat {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String description;
-	private double startPointLat;
-	private double startPointLong;
-	private double endPointLat;
-	private double endPointLong;
 	
 	@NotEmpty
 	@ElementCollection(targetClass = RouteType.class)
@@ -50,10 +46,10 @@ public class Cheat {
 	private Set<RouteType> routeType;
 
 	// @NotEmpty
-	@ElementCollection(targetClass = Coordinate.class)
+	// @ElementCollection(targetClass = Coordinate.class)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cheat")
 	private Set<Coordinate> coordinate;
-
+	
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate

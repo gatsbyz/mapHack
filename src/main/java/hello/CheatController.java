@@ -32,6 +32,7 @@ public class CheatController {
 	// Create a new Note
 	@PostMapping("")
 	public Cheat createCheat(@Valid @RequestBody Cheat cheat) {
+		cheat.setCoordinate(cheat.getCoordinate());
 	    return cheatRepository.save(cheat);
 	}
 	
@@ -53,12 +54,9 @@ public class CheatController {
 	    if(cheat == null) {
 	        return ResponseEntity.notFound().build();
 	    }
-	    cheat.setStartPointLat(cheatDetails.getStartPointLat());
-	    cheat.setEndPointLat(cheatDetails.getEndPointLat());
-	    cheat.setStartPointLong(cheatDetails.getEndPointLong());
-	    cheat.setEndPointLong(cheatDetails.getEndPointLong());
-	    Cheat updatedNote = cheatRepository.save(cheat);
-	    return ResponseEntity.ok(updatedNote);
+	    cheat.setCoordinate(cheatDetails.getCoordinate());
+	    Cheat updatedCheat = cheatRepository.save(cheat);
+	    return ResponseEntity.ok(updatedCheat);
 	}
 	
 	// Delete a Note
