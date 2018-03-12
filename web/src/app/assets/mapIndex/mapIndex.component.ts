@@ -148,7 +148,7 @@ export class MapIndexComponent implements OnInit {
   drawFromToCheat(directionsService, from, selectedMode) {
     const directionsRequest = {
       origin: from,
-      destination: {lat: this.closestMarker.position.lat(), lng: this.closestMarker.position.lng()},
+      destination: new google.maps.LatLng(this.closestMarker.position.lat(), this.closestMarker.position.lng()),
       travelMode: google.maps.TravelMode[selectedMode],
       unitSystem: google.maps.UnitSystem.METRIC
     };
@@ -179,7 +179,7 @@ export class MapIndexComponent implements OnInit {
 
   drawCheatToDestination(directionsService, to, selectedMode) {
     const directionsRequest = {
-      origin: {lat: this.cheatLatLng[this.index].lat, lng: this.cheatLatLng[this.index].lng},
+      origin: new google.maps.LatLng( this.cheatLatLng[this.index].lat, this.cheatLatLng[this.index].lng),
       destination: to,
       travelMode: google.maps.TravelMode[selectedMode],
       unitSystem: google.maps.UnitSystem.METRIC
@@ -213,15 +213,18 @@ export class MapIndexComponent implements OnInit {
   }
 
   drawCheatPath(cheat) {
+    const path = [];
+    cheat.coordinate.forEach(function(val, i) {
+      path.push(new google.maps.LatLng(val.latitude, val.longitude));
+    });
     const flightPath = new google.maps.Polyline({
-      path: [{lat: cheat.startPointLat, lng: cheat.startPointLong}, {lat: cheat.endPointLat, lng: cheat.endPointLong}],
+      path: path,
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
       strokeWeight: 3,
       setMap: this.map
     });
-
     // flightPath.setMap(this.map);
   }
 
@@ -235,7 +238,7 @@ export class MapIndexComponent implements OnInit {
         // });
         const selectedMode = _this.routeTypeModel[0];
         console.log(_this.routeTypeModel);
-        _this.find_closest_marker({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+        _this.find_closest_marker(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
         const directionsService = new google.maps.DirectionsService();
         _this.drawOriginalRoute(directionsService, from, to, selectedMode);
         // _this.drawCheatRoute(directionsService, from, to, selectedMode);
@@ -325,10 +328,12 @@ export class MapIndexComponent implements OnInit {
   }
 
   drawCheats(cheats) {
+    let latLng: google.maps.LatLng;
+    let icon;
     cheats.forEach(function(cheat, index) {
-      const latLng = {lat: cheat.startPointLat, lng: cheat.startPointLong};
-      const latLng2 = {lat: cheat.endPointLat, lng: cheat.endPointLong};
-      const icon = {
+      console.log(cheat);
+      latLng = new google.maps.LatLng(cheat.coordinate[0].latitude, cheat.coordinate[0].longitude);
+      icon = {
         url: 'http://i.imgur.com/ba7xhjE.png?2',
         scaledSize: new google.maps.Size(20, 20)
       };
@@ -346,7 +351,7 @@ export class MapIndexComponent implements OnInit {
       });
 
       this.cheatMarkersArray.push(marker);
-      this.cheatLatLng.push(latLng2);
+      this.cheatLatLng.push(latLng);
     }, this);
   }
 
@@ -387,7 +392,7 @@ export class MapIndexComponent implements OnInit {
 
   initAutocomplete() {
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.730610, lng: -73.935242},
+      center: new google.maps.LatLng(40.730610, -73.935242),
       zoom: 13,
       mapTypeId: 'roadmap'
     });

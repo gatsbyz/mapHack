@@ -18,7 +18,7 @@ export class CheatShowComponent implements OnInit {
   map: google.maps.Map = null;
   cheat: Cheat;
 
-  cheatMarkersArray = [];
+  cheatMarkersArray: google.maps.Marker[] = [];
 
   private sub: any;
 
@@ -49,7 +49,7 @@ export class CheatShowComponent implements OnInit {
 
   initAutocomplete(cheat) {
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude },
+      center: new google.maps.LatLng(cheat.coordinate[0].latitude, cheat.coordinate[0].longitude),
       zoom: 18,
       mapTypeId: 'roadmap'
     });
@@ -59,8 +59,12 @@ export class CheatShowComponent implements OnInit {
   }
 
   drawCheatPath(cheat) {
+    const path = [];
+    cheat.coordinate.forEach(function(val, i) {
+      path.push(new google.maps.LatLng(val.latitude, val.longitude));
+    });
     const flightPath = new google.maps.Polyline({
-      path: [{lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude}, {lat: cheat.endPointLat, lng: cheat.endPointLong}],
+      path: path,
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
@@ -71,21 +75,16 @@ export class CheatShowComponent implements OnInit {
   }
 
   drawCheatEndPoints(cheat) {
-    const latLng1 = {lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude};
-    const marker1 = new google.maps.Marker({
-      position: latLng1,
-      map: this.map,
-    });
-
-    this.cheatMarkersArray.push(marker1);
-
-    const latLng2 = {lat: cheat.endPointLat, lng: cheat.endPointLong};
-    const marker2 = new google.maps.Marker({
-      position: latLng2,
-      map: this.map,
-    });
-
-    this.cheatMarkersArray.push(marker2);
+    let latLng: google.maps.LatLng;
+    let marker: google.maps.Marker;
+    cheat.coordinate.forEach(function(val, i) {
+      latLng = new google.maps.LatLng(val.latitude, val.longitude);
+      marker = new google.maps.Marker({
+        position: latLng,
+        map: this.map,
+      });
+      this.cheatMarkersArray.push(marker);
+    }, this);
   }
 
   editCheat() {

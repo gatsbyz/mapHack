@@ -49,9 +49,7 @@ public class CheatController {
 	// Get a Single Note
 	@GetMapping("/{id}")
 	public ResponseEntity<Cheat> getCheatById(@PathVariable(value = "id") Long cheatId) {
-		System.out.println("AAA");
 		Cheat cheat = cheatRepository.findOne(cheatId);
-		System.out.println(cheat.getCoordinate().size());
 	    if(cheat == null) {
 	        return ResponseEntity.notFound().build();
 	    }

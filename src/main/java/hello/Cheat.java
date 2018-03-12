@@ -1,6 +1,7 @@
 package hello;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,8 +26,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 
@@ -33,6 +36,7 @@ import lombok.Data;
 @Table(name = "cheats")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = { "createdAt", "updatedAt" }, allowGetters = true)
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
 @Data
 public class Cheat {
 
@@ -48,8 +52,8 @@ public class Cheat {
 
 	@ElementCollection(targetClass = Coordinate.class)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cheat")
-	@JsonIgnore
-	private Set<Coordinate> coordinate;
+	@OrderBy("orderNumber")
+	private List<Coordinate> coordinate;
 
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -60,28 +64,5 @@ public class Cheat {
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date updatedAt;
-
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object cheat) {
-		return super.equals(cheat);
-	}
-
-	public Cheat updateCoordinateCheatId(Cheat cheat) {
-		Set<Coordinate> coordinates = cheat.getCoordinate();
-		for (Coordinate c : coordinates) {
-			c.setCheat(cheat);
-		}
-		return cheat;
-	}
 
 }

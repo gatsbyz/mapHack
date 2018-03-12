@@ -12,12 +12,18 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "coordinates")
 @EntityListeners(AuditingEntityListener.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.UUIDGenerator.class, property="@id")
+@EqualsAndHashCode(exclude = "cheat", callSuper = false)
 @Data
 @NoArgsConstructor
 public class Coordinate {
@@ -34,20 +40,5 @@ public class Coordinate {
 	
 	private double latitude;
 	private double longitude;
-
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object coordinate) {
-		return super.equals(coordinate);
-	}
 	
 }
