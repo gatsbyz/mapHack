@@ -2,6 +2,7 @@
 package hello;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -22,6 +23,9 @@ public class CheatController {
 
 	@Autowired
 	CheatRepository cheatRepository;
+
+	@Autowired
+	CoordinateRepository coordinateRepository;
 	
 	// Get All Notes
 	@GetMapping("")
@@ -31,15 +35,23 @@ public class CheatController {
 	
 	// Create a new Note
 	@PostMapping("")
-	public Cheat createCheat(@Valid @RequestBody Cheat cheat) {
-		cheat.setCoordinate(cheat.getCoordinate());
-	    return cheatRepository.save(cheat);
+	public Cheat createCheat(@Valid @RequestBody CheatDTO cheatDto) {
+		Cheat cheat = cheatDto.getCheat();
+		Set<Coordinate> coordinates = cheatDto.getCoordinates();
+	    Cheat c = cheatRepository.save(cheat);
+	    coordinates.forEach(coord -> {
+	    		coord.setCheat(cheat);
+	    		coordinateRepository.save(coord);
+	    });
+	    return c;
 	}
 	
 	// Get a Single Note
 	@GetMapping("/{id}")
-	public ResponseEntity<Cheat> getNoteById(@PathVariable(value = "id") Long cheatId) {
+	public ResponseEntity<Cheat> getCheatById(@PathVariable(value = "id") Long cheatId) {
+		System.out.println("AAA");
 		Cheat cheat = cheatRepository.findOne(cheatId);
+		System.out.println(cheat.getCoordinate().size());
 	    if(cheat == null) {
 	        return ResponseEntity.notFound().build();
 	    }
@@ -48,7 +60,7 @@ public class CheatController {
 	
 	// Update a Note
 	@PutMapping("/{id}")
-	public ResponseEntity<Cheat> updateNote(@PathVariable(value = "id") Long cheatId, 
+	public ResponseEntity<Cheat> updateCheat(@PathVariable(value = "id") Long cheatId, 
 	                                       @Valid @RequestBody Cheat cheatDetails) {
 		Cheat cheat = cheatRepository.findOne(cheatId);
 	    if(cheat == null) {
@@ -61,7 +73,7 @@ public class CheatController {
 	
 	// Delete a Note
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Cheat> deleteNote(@PathVariable(value = "id") Long noteId) {
+	public ResponseEntity<Cheat> deleteCheat(@PathVariable(value = "id") Long noteId) {
 		Cheat cheat = cheatRepository.findOne(noteId);
 	    if(cheat == null) {
 	        return ResponseEntity.notFound().build();

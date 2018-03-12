@@ -4,8 +4,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface CheatRepository extends JpaRepository<Cheat, Long> {
-	
-	Cheat findById(long id);
+public interface CoordinateRepository extends JpaRepository<Coordinate, Long>{
+
+	Coordinate findById(long id);
 	
 }

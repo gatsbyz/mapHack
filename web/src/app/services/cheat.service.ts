@@ -18,7 +18,7 @@ export class CheatService {
     return new Cheat(cheatInfo);
   }
 
-  save(cheat: Cheat): Observable<Cheat> {
+  save(cheat: any): Observable<Cheat> {
     return this.http
       .post('api/cheat', JSON.stringify(cheat), httpOptions).map((res: Response) => new Cheat(res));
   }

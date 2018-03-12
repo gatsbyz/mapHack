@@ -18,9 +18,10 @@ export class CheatNewComponent implements OnInit {
 
   cheat = {
     description: '',
-    routeType: [],
-    coordinate: []
+    routeType: []
   };
+
+  coordinates = [];
 
   markersArray = [];
 
@@ -158,19 +159,20 @@ export class CheatNewComponent implements OnInit {
 
   saveCheat() {
     this.markersArray.forEach(function(element, index) {
-      this.cheat.coordinate.push({
+      this.coordinates.push({
         latitude: element.position.lat(),
         longitude: element.position.lng(),
         orderNumber: index
       });
     }, this);
-    console.log(this.cheat.coordinate);
+    console.log(this.cheat);
     console.log(this.routeTypeModel);
     this.routeTypeModel.forEach(function(element, index) {
       this.cheat.routeType.push(element); // {'description' : element.id}
     }, this);
     const cheat: Cheat = this.cheatService.create(this.cheat);
-    this.cheatService.save(cheat).subscribe(
+    const data = {cheat: this.cheat, coordinates: this.coordinates};
+    this.cheatService.save(data).subscribe(
       res => {
         console.log(res);
         const navigationExtras: NavigationExtras = {

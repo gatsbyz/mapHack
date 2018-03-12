@@ -24,6 +24,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -39,17 +40,17 @@ public class Cheat {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String description;
-	
+
 	@NotEmpty
 	@ElementCollection(targetClass = RouteType.class)
 	@Enumerated(EnumType.STRING)
 	private Set<RouteType> routeType;
 
-	// @NotEmpty
-	// @ElementCollection(targetClass = Coordinate.class)
+	@ElementCollection(targetClass = Coordinate.class)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "cheat")
+	@JsonIgnore
 	private Set<Coordinate> coordinate;
-	
+
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreatedDate
@@ -62,7 +63,25 @@ public class Cheat {
 
 	@Override
 	public String toString() {
-		return String.format("Cheat[id=%d, routeType='%s']", id, routeType);
+		return super.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object cheat) {
+		return super.equals(cheat);
+	}
+
+	public Cheat updateCoordinateCheatId(Cheat cheat) {
+		Set<Coordinate> coordinates = cheat.getCoordinate();
+		for (Coordinate c : coordinates) {
+			c.setCheat(cheat);
+		}
+		return cheat;
 	}
 
 }

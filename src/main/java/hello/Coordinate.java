@@ -9,19 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "coordinates")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@NoArgsConstructor
 public class Coordinate {
 
 	@Id
@@ -36,5 +34,20 @@ public class Coordinate {
 	
 	private double latitude;
 	private double longitude;
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object coordinate) {
+		return super.equals(coordinate);
+	}
 	
 }

@@ -49,7 +49,7 @@ export class CheatShowComponent implements OnInit {
 
   initAutocomplete(cheat) {
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: cheat.startPointLat, lng: cheat.startPointLong},
+      center: {lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude },
       zoom: 18,
       mapTypeId: 'roadmap'
     });
@@ -60,7 +60,7 @@ export class CheatShowComponent implements OnInit {
 
   drawCheatPath(cheat) {
     const flightPath = new google.maps.Polyline({
-      path: [{lat: cheat.startPointLat, lng: cheat.startPointLong}, {lat: cheat.endPointLat, lng: cheat.endPointLong}],
+      path: [{lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude}, {lat: cheat.endPointLat, lng: cheat.endPointLong}],
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
@@ -71,7 +71,7 @@ export class CheatShowComponent implements OnInit {
   }
 
   drawCheatEndPoints(cheat) {
-    const latLng1 = {lat: cheat.startPointLat, lng: cheat.startPointLong};
+    const latLng1 = {lat: cheat.coordinate.latitude, lng: cheat.coordinate.longitude};
     const marker1 = new google.maps.Marker({
       position: latLng1,
       map: this.map,
