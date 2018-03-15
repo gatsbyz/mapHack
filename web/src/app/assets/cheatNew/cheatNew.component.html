@@ -18,8 +18,8 @@
 						[texts]="routeTypeTexts" [settings]="routeTypeSettings"
 						[(ngModel)]="routeTypeModel" name="routeType"></ss-multiselect-dropdown>
 				</div>
-				<textarea class="cheat-textarea" rows="10" cols="60"
-					placeholder="Write details about this hacked route."></textarea>
+				<textarea [(ngModel)]="description" class="cheat-textarea" rows="10" cols="60"
+					placeholder="Write details about this hacked route." name="description"></textarea>
 				<br>
 				<button type="button" class="btn btn-light" (click)="saveCheat()">Submit</button>
 			</div>

@@ -21,6 +21,8 @@ export class CheatNewComponent implements OnInit {
     routeType: []
   };
 
+  description: string;
+
   coordinates = [];
 
   markersArray = [];
@@ -63,10 +65,17 @@ export class CheatNewComponent implements OnInit {
 
   initAutocomplete() {
     const map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.730610, lng: -73.935242},
+      // center: {lat: 40.730610, lng: -73.935242},
       zoom: 13,
       mapTypeId: 'roadmap'
     });
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        map.setCenter(initialLocation);
+      });
+    }
 
     const _this = this;
     map.addListener('click', function(e) {
@@ -165,11 +174,10 @@ export class CheatNewComponent implements OnInit {
         orderNumber: index
       });
     }, this);
-    console.log(this.cheat);
-    console.log(this.routeTypeModel);
     this.routeTypeModel.forEach(function(element, index) {
       this.cheat.routeType.push(element); // {'description' : element.id}
     }, this);
+    this.cheat.description = this.description;
     const cheat: Cheat = this.cheatService.create(this.cheat);
     const data = {cheat: this.cheat, coordinates: this.coordinates};
     this.cheatService.save(data).subscribe(

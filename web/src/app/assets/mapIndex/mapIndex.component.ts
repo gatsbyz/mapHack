@@ -179,7 +179,7 @@ export class MapIndexComponent implements OnInit {
 
   drawCheatToDestination(directionsService, to, selectedMode) {
     const directionsRequest = {
-      origin: new google.maps.LatLng( this.cheatLatLng[this.index].lat, this.cheatLatLng[this.index].lng),
+      origin: new google.maps.LatLng(this.cheatLatLng[this.index].lat, this.cheatLatLng[this.index].lng),
       destination: to,
       travelMode: google.maps.TravelMode[selectedMode],
       unitSystem: google.maps.UnitSystem.METRIC
@@ -237,7 +237,6 @@ export class MapIndexComponent implements OnInit {
         //     calculateAndDisplayRoute(directionsService, directionsDisplay);
         // });
         const selectedMode = _this.routeTypeModel[0];
-        console.log(_this.routeTypeModel);
         _this.find_closest_marker(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
         const directionsService = new google.maps.DirectionsService();
         _this.drawOriginalRoute(directionsService, from, to, selectedMode);
@@ -331,7 +330,6 @@ export class MapIndexComponent implements OnInit {
     let latLng: google.maps.LatLng;
     let icon;
     cheats.forEach(function(cheat, index) {
-      console.log(cheat);
       latLng = new google.maps.LatLng(cheat.coordinate[0].latitude, cheat.coordinate[0].longitude);
       icon = {
         url: 'http://i.imgur.com/ba7xhjE.png?2',
@@ -364,7 +362,7 @@ export class MapIndexComponent implements OnInit {
     this.router.navigate(['/cheatShow'], navigationExtras);
   }
 
-  rad(x) {return x * Math.PI / 180; }
+  rad(x) {return x * Math.PI / 180;}
   find_closest_marker(latLng) {
     const lat = latLng.lat;
     const lng = latLng.lng;
@@ -392,88 +390,103 @@ export class MapIndexComponent implements OnInit {
 
   initAutocomplete() {
     this.map = new google.maps.Map(document.getElementById('map'), {
-      center: new google.maps.LatLng(40.730610, -73.935242),
+      // center: new google.maps.LatLng(40.730610, -73.935242),
       zoom: 13,
       mapTypeId: 'roadmap'
     });
 
-    // Create the search box and link it to the UI element.
-    const input = document.getElementById('pac-input');
-    const searchBox = new google.maps.places.SearchBox(input);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    $('#pac-input').hide();
+    google.maps.event.addListenerOnce(this.map, 'idle', function() {
+      // do something only the first time the map is loaded
+      $('#pac-input').show();
 
-    // Bias the SearchBox results towards current map's viewport.
-    this.map.addListener('bounds_changed', function() {
-      //      searchBox.setBounds(this.map.getBounds());
-    });
-
-    const fromInput = document.getElementById('from');
-    const fromBox = new google.maps.places.SearchBox(fromInput);
-
-    this.map.addListener('bounds_changed', function() {
-      //      fromBox.setBounds(this.map.getBounds());
-    });
-
-    const toInput = document.getElementById('to');
-    const toBox = new google.maps.places.SearchBox(toInput);
-
-    this.map.addListener('bounds_changed', function() {
-      //      toBox.setBounds(this.map.getBounds());
-    });
-
-    const cheatInput = document.getElementById('add-cheat');
-    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cheatInput);
-
-    let markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-
-    const _this = this;
-    searchBox.addListener('places_changed', function() {
-      const places = searchBox.getPlaces();
-      if (places.length === 0) {
-        return;
+      const _this = this;
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          _this.map.setCenter(initialLocation);
+        });
       }
 
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-        // marker.setMap(_this.map);
+      // Create the search box and link it to the UI element.
+      const input = $('#pac-input');
+      const searchBox = new google.maps.places.SearchBox(input);
+      this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+
+      // Bias the SearchBox results towards current map's viewport.
+      this.map.addListener('bounds_changed', function() {
+        //      searchBox.setBounds(this.map.getBounds());
       });
-      markers = [];
 
-      // For each place, get the icon, name and location.
-      const bounds = new google.maps.LatLngBounds();
+      const fromInput = document.getElementById('from');
+      const fromBox = new google.maps.places.SearchBox(fromInput);
 
-      places.forEach(function(place) {
-        if (!place.geometry) {
-          console.log('Returned place contains no geometry');
+      this.map.addListener('bounds_changed', function() {
+        //      fromBox.setBounds(this.map.getBounds());
+      });
+
+      const toInput = document.getElementById('to');
+      const toBox = new google.maps.places.SearchBox(toInput);
+
+      this.map.addListener('bounds_changed', function() {
+        //      toBox.setBounds(this.map.getBounds());
+      });
+
+      const cheatInput = document.getElementById('add-cheat');
+      this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cheatInput);
+
+      let markers = [];
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+
+      searchBox.addListener('places_changed', function() {
+        const places = searchBox.getPlaces();
+        if (places.length === 0) {
           return;
         }
-        const icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        };
 
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: this.map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          // marker.setMap(_this.map);
+        });
+        markers = [];
 
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      }, this);
-      _this.map.fitBounds(bounds);
+        // For each place, get the icon, name and location.
+        const bounds = new google.maps.LatLngBounds();
+
+        places.forEach(function(place) {
+          if (!place.geometry) {
+            console.log('Returned place contains no geometry');
+            return;
+          }
+          const icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
+
+          // Create a marker for each place.
+          markers.push(new google.maps.Marker({
+            map: this.map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location
+          }));
+
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        }, this);
+        _this.map.fitBounds(bounds);
+      });
     });
+
   }
 
   createMarker(latlng, label, html) {
@@ -493,7 +506,7 @@ export class MapIndexComponent implements OnInit {
     this.map.setCenter(this.polyline.getPath().getAt(0));
     // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
     const _this = this;
-    setTimeout(function() {_this.animate(50); }, 1000);  // Allow time for the initial map display
+    setTimeout(function() {_this.animate(50);}, 1000);  // Allow time for the initial map display
   }
 
   animate(d) {
@@ -507,7 +520,7 @@ export class MapIndexComponent implements OnInit {
     this.mark.setPosition(p);
     // updatePoly(d);
 
-    setTimeout(function() {this.animate(d + 50); }, 100);
+    setTimeout(function() {this.animate(d + 50);}, 100);
   }
 
   updatePoly(d) {
