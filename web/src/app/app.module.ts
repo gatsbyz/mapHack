@@ -19,7 +19,7 @@ import {routing, appRouterProviders} from './app.routing';
 import {CheatShowComponent} from './assets/cheatShow/cheatShow.component';
 
 import {CheatService} from './services/cheat.service';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MultiselectDropdownModule,
     FormsModule,
+    ReactiveFormsModule,
     routing
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,5 +1,6 @@
 import {CheatService} from '../../services/cheat.service';
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, NavigationExtras} from '@angular/router';
 import * as $ from 'jquery';
 import {} from '@types/googlemaps';
@@ -28,6 +29,7 @@ export class MapIndexComponent implements OnInit {
   cheatLatLng = [];
   eol = null;
 
+  directionForm: FormGroup;
 
   routeTypeData: IMultiSelectOption[];
   routeTypeModel: string[];
@@ -45,8 +47,15 @@ export class MapIndexComponent implements OnInit {
   hackTime = 0;
   hackDist = 0;
 
+  showMap = false;
 
-  constructor(private cheatService: CheatService, private router: Router) {}
+  constructor(private cheatService: CheatService, private router: Router, private formbuilder: FormBuilder) {
+    this.directionForm = formbuilder.group({
+      routeType: new FormControl('', Validators.required),
+      from: new FormControl('', Validators.required),
+      to: new FormControl('', Validators.required)
+    });
+  }
 
   ngOnInit() {
     this.cheatService
@@ -119,12 +128,16 @@ export class MapIndexComponent implements OnInit {
         });
     });
 
-    const __this = this;
-    $('#calculate-route').submit(function(event) {
-      event.preventDefault();
-      __this.calculateRoute($('#from').val(), $('#to').val());
-    });
+  }
 
+  submitData(directionForm: NgForm) {
+    if (this.directionForm.controls.from.valid &&
+      this.directionForm.controls.to.valid &&
+      this.directionForm.controls.routeType.valid) {
+      this.calculateRoute($('#from').val(), $('#to').val());
+    } else {
+
+    }
   }
 
   deleteCheat(cheat) {
@@ -137,12 +150,9 @@ export class MapIndexComponent implements OnInit {
   }
 
   drawCheatRoute(directionsService, from, to, selectedMode) {
-
     this.drawFromToCheat(directionsService, from, selectedMode);
     this.drawCheatToDestination(directionsService, to, selectedMode);
     this.drawCheatPath(this.cheats[this.index]);
-
-
   }
 
   drawFromToCheat(directionsService, from, selectedMode) {
@@ -362,7 +372,7 @@ export class MapIndexComponent implements OnInit {
     this.router.navigate(['/cheatShow'], navigationExtras);
   }
 
-  rad(x) {return x * Math.PI / 180; }
+  rad(x) {return x * Math.PI / 180;}
   find_closest_marker(latLng) {
     const lat = latLng.lat;
     const lng = latLng.lng;
@@ -396,6 +406,11 @@ export class MapIndexComponent implements OnInit {
     });
 
     const _this = this;
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
+      // do something only the first time the map is loaded
+      _this.showMap = true;
+    });
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -498,7 +513,7 @@ export class MapIndexComponent implements OnInit {
     this.map.setCenter(this.polyline.getPath().getAt(0));
     // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
     const _this = this;
-    setTimeout(function() {_this.animate(50); }, 1000);  // Allow time for the initial map display
+    setTimeout(function() {_this.animate(50);}, 1000);  // Allow time for the initial map display
   }
 
   animate(d) {
@@ -512,7 +527,7 @@ export class MapIndexComponent implements OnInit {
     this.mark.setPosition(p);
     // updatePoly(d);
 
-    setTimeout(function() {this.animate(d + 50); }, 100);
+    setTimeout(function() {this.animate(d + 50);}, 100);
   }
 
   updatePoly(d) {

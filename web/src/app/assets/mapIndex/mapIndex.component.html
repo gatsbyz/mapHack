@@ -1,27 +1,27 @@
-<div>
-	<input id="pac-input" class="controls" type="text"
+<div [hidden]="!showMap">
+	<input id="pac-input" class="form-control" type="text"
 		placeholder="Search Box">
 
-	<form id="calculate-route" name="calculate-route" action="#"
-		method="get">
+	<form novalidate [formGroup]="directionForm" (ngSubmit)="submitData(directionForm)">
 
 		<div class="destination-wrap">
-			<ss-multiselect-dropdown [options]="routeTypeData"
-				[texts]="routeTypeTexts" [settings]="routeTypeSettings"
-				[(ngModel)]="routeTypeModel" name="routeType"></ss-multiselect-dropdown>
+			<ss-multiselect-dropdown [options]="routeTypeData" [texts]="routeTypeTexts" [settings]="routeTypeSettings"
+				[(ngModel)]="routeTypeModel" formControlName="routeType">
+			</ss-multiselect-dropdown>
 			<div class="form-wrap">
 				<!--<label class="labels" for="from">From:</label>-->
-				<input class="form-control" type="text" id="from" name="from"
-					required="required" placeholder="From" size="30">
+				<input class="form-control" type="text" id="from" formControlName="from" required="required" placeholder="From" size="30"
+				[ngClass]="{'is-invalid': directionForm.controls.from.invalid && (directionForm.controls.from.dirty || directionForm.controls.from.touched),
+							'is-valid': directionForm.controls.from.valid && (directionForm.controls.from.dirty || directionForm.controls.from.touched) }">
 				<button id="from-link" class="btn btn-light">
 					<i class="fa fa-location-arrow fa-lg feather" aria-hidden="true"></i>
 				</button>
 			</div>
 			<img class="path" src="http://i.imgur.com/NhQ6NQu.png">
-			<div class="form-wrap">
-				<!--<label class="labels" for="to">To:</label>-->
-				<input class="form-control" type="text" id="to" name="to"
-					required="required" placeholder="To" size="30">
+			<div class="form-wrap" >
+				<input class="form-control" type="text" id="to" formControlName="to" required="required" placeholder="To" size="30"
+					[ngClass]="{'is-invalid': directionForm.controls.to.invalid && (directionForm.controls.to.dirty || directionForm.controls.to.touched),
+							'is-valid': directionForm.controls.to.valid && (directionForm.controls.to.dirty || directionForm.controls.to.touched) }">
 				<button id="to-link" class="btn btn-light">
 					<i class="fa fa-location-arrow fa-lg feather" aria-hidden="true"></i>
 				</button>
@@ -44,10 +44,11 @@
 			</div>
 		</div>
 	</form>
+
+	<button routerLink="/cheatNew" id="add-cheat"
+		class="btn btn-light map-button">
+		<i class="fa fa-plus fa-lg feather" aria-hidden="true"></i>Add A Cheat
+	</button>
 </div>
 
 <div id="map"></div>
-<button routerLink="/cheatNew" id="add-cheat"
-	class="btn btn-light map-button">
-	<i class="fa fa-plus fa-lg feather" aria-hidden="true"></i>Add A Cheat
-</button>
