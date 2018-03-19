@@ -6,8 +6,8 @@ declare var google: any;
 
 @Component({
   selector: 'app-cheatindex',
-  templateUrl: './cheatindex.component.html',
-  styleUrls: ['./cheatindex.component.css']
+  templateUrl: './cheatIndex.component.html',
+  styleUrls: ['./cheatIndex.component.css']
 })
 
 export class CheatIndexComponent implements OnInit {
