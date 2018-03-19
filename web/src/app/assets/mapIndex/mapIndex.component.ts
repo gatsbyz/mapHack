@@ -133,7 +133,7 @@ export class MapIndexComponent implements OnInit {
 
   }
 
-  submitData(directionForm: NgForm) {
+  submitData(directionForm: FormGroup) {
     if (this.directionForm.controls.from.valid &&
       this.directionForm.controls.to.valid &&
       this.directionForm.controls.routeType.valid) {
