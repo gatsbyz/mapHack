@@ -1,6 +1,6 @@
 import {Cheat} from '../../models/cheat';
 import {CheatService} from '../../services/cheat.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {Router, NavigationExtras} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {IMultiSelectOption, IMultiSelectTexts, IMultiSelectSettings} from 'angular-2-dropdown-multiselect';
@@ -32,7 +32,13 @@ export class CheatNewComponent implements OnInit {
   routeTypeSettings: IMultiSelectSettings;
   routeTypeTexts: IMultiSelectTexts;
 
-  constructor(private cheatService: CheatService, private router: Router, private fb: FormBuilder) {}
+  showMap = false;
+
+  constructor(private cheatService: CheatService,
+    private router: Router,
+    private fb: FormBuilder,
+    private ref:
+      ChangeDetectorRef) {}
 
   ngOnInit() {
     this.initAutocomplete();
@@ -70,6 +76,14 @@ export class CheatNewComponent implements OnInit {
       mapTypeId: 'roadmap'
     });
 
+    const _this = this;
+
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+      // do something only the first time the map is loaded
+      _this.showMap = true;
+      _this.ref.detectChanges();
+    });
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -77,7 +91,6 @@ export class CheatNewComponent implements OnInit {
       });
     }
 
-    const _this = this;
     map.addListener('click', function(e) {
       _this.placeMarker(e.latLng, map);
     });

@@ -1,5 +1,5 @@
 import {CheatService} from '../../services/cheat.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, NavigationExtras} from '@angular/router';
 import * as $ from 'jquery';
@@ -49,7 +49,10 @@ export class MapIndexComponent implements OnInit {
 
   showMap = false;
 
-  constructor(private cheatService: CheatService, private router: Router, private formbuilder: FormBuilder) {
+  constructor(private cheatService: CheatService,
+    private router: Router,
+    private formbuilder: FormBuilder,
+    private ref: ChangeDetectorRef) {
     this.directionForm = formbuilder.group({
       routeType: new FormControl('', Validators.required),
       from: new FormControl('', Validators.required),
@@ -287,7 +290,7 @@ export class MapIndexComponent implements OnInit {
 
           _this.polyline = new google.maps.Polyline({
             path: [],
-            // strokeColor: '#FF0000',
+            strokeColor: '#FF0000',
             // strokeWeight: 5,
             strokeOpacity: 0,
             // zIndex: 2,
@@ -409,6 +412,7 @@ export class MapIndexComponent implements OnInit {
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
       // do something only the first time the map is loaded
       _this.showMap = true;
+      _this.ref.detectChanges();
     });
 
     if (navigator.geolocation) {
@@ -527,7 +531,7 @@ export class MapIndexComponent implements OnInit {
     this.mark.setPosition(p);
     // updatePoly(d);
 
-    setTimeout(function() {this.animate(d + 50);}, 100);
+    setTimeout(() => {this.animate(d + 50);}, 100);
   }
 
   updatePoly(d) {

@@ -1,9 +1,8 @@
-<div>
+<div id="map"></div>
 
-	<input id="pac-input" class="controls" type="text"
-		placeholder="Search Box">
-
-	<div id="map"></div>
+<div [(hidden)]="!showMap">
+	<input id="pac-input" class="form-control"
+		type="text" placeholder="Search Box">
 
 	<button id="reset" class="btn btn-light map-button"
 		(click)="clearOverlays()">Reset Markers</button>
@@ -18,8 +17,9 @@
 						[texts]="routeTypeTexts" [settings]="routeTypeSettings"
 						[(ngModel)]="routeTypeModel" name="routeType"></ss-multiselect-dropdown>
 				</div>
-				<textarea [(ngModel)]="description" class="cheat-textarea" rows="10" cols="60"
-					placeholder="Write details about this hacked route." name="description"></textarea>
+				<textarea [(ngModel)]="description" class="cheat-textarea" rows="10"
+					cols="60" placeholder="Write details about this hacked route."
+					name="description"></textarea>
 				<br>
 				<button type="button" class="btn btn-light" (click)="saveCheat()">Submit</button>
 			</div>
