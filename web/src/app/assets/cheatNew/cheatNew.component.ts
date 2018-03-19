@@ -10,8 +10,8 @@ declare var google: any;
 
 @Component({
   selector: 'app-cheatnew',
-  templateUrl: './cheatnew.component.html',
-  styleUrls: ['./cheatnew.component.css']
+  templateUrl: './cheatNew.component.html',
+  styleUrls: ['./cheatNew.component.css']
 })
 
 export class CheatNewComponent implements OnInit {
