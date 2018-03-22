@@ -521,6 +521,7 @@ var CheatNewComponent = /** @class */ (function () {
         google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
             // do something only the first time the map is loaded
             _this.showMap = true;
+            console.log('gatsby');
             _this.ref.detectChanges();
         });
         if (navigator.geolocation) {
@@ -837,7 +838,7 @@ module.exports = ".carousel img {\n\twidth: 40em;\n\theight: 30em;\n}"
 /***/ "./src/app/assets/index/gallery/gallery.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ngb-carousel>\n  <ng-template ngbSlide>\n    <img src=\"http://cdn-www.dailypuppy.com/media/dogs/anonymous/mocho_chocolate_labrador_weimaraner_mix_02.jpg_w450.jpg\" alt=\"Labmaraner\">\n    <div class=\"carousel-caption\">\n      <h3>Labmaraner</h3>\n      <p>Gatsby!</p>\n    </div>\n  </ng-template>\n  <ng-template ngbSlide>\n    <img src=\"http://cdn3-www.dogtime.com/assets/uploads/gallery/miniature-schnauzer-dogs-and-puppies/miniature-schnauzer-dogs-puppies-2.jpg\" alt=\"Mini Schanuzer\">\n    <div class=\"carousel-caption\">\n      <h3>Mini Schnauzer</h3>\n      <p>Cookee!</p>\n    </div>\n  </ng-template>\n  <ng-template ngbSlide>\n    <img src=\"http://cdn.akc.org/akccontentimages/BreedOfficialPortraits/hero/Chow-Chow.jpg\" alt=\"Chow chow\">\n    <div class=\"carousel-caption\">\n      <h3>Chow Chow</h3>\n      <p>Chinese motherfuckers!</p>\n    </div>\n  </ng-template>\n</ngb-carousel>\n"
+module.exports = "<ngb-carousel>\n  <ng-template ngbSlide>\n    <img src=\"https://01iajxoiw1-flywheel.netdna-ssl.com/wp-content/uploads/2017/11/cute.jpg\" alt=\"Labmaraner\">\n    <div class=\"carousel-caption\">\n      <h3>Labmaraner</h3>\n      <p>Gatsby!</p>\n    </div>\n  </ng-template>\n  <ng-template ngbSlide>\n    <img src=\"http://cdn3-www.dogtime.com/assets/uploads/gallery/miniature-schnauzer-dogs-and-puppies/miniature-schnauzer-dogs-puppies-2.jpg\" alt=\"Mini Schanuzer\">\n    <div class=\"carousel-caption\">\n      <h3>Mini Schnauzer</h3>\n      <p>Cookee!</p>\n    </div>\n  </ng-template>\n  <ng-template ngbSlide>\n    <img src=\"http://cdn.akc.org/akccontentimages/BreedOfficialPortraits/hero/Chow-Chow.jpg\" alt=\"Chow chow\">\n    <div class=\"carousel-caption\">\n      <h3>Chow Chow</h3>\n      <p>Chinese motherfuckers!</p>\n    </div>\n  </ng-template>\n</ngb-carousel>\n"
 
 /***/ }),
 
@@ -1306,6 +1307,7 @@ var MapIndexComponent = /** @class */ (function () {
         google.maps.event.addListenerOnce(this.map, 'tilesloaded', function () {
             // do something only the first time the map is loaded
             _this.showMap = true;
+            console.log('gatsby');
             _this.ref.detectChanges();
         });
         if (navigator.geolocation) {

@@ -81,6 +81,7 @@ export class CheatNewComponent implements OnInit {
     google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
       // do something only the first time the map is loaded
       _this.showMap = true;
+      console.log('gatsby');
       _this.ref.detectChanges();
     });
 
