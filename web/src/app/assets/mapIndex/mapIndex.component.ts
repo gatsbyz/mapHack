@@ -47,7 +47,7 @@ export class MapIndexComponent implements OnInit {
   hackTime = 0;
   hackDist = 0;
 
-  showMap = false;
+  showMap = true;
 
   constructor(private cheatService: CheatService,
     private router: Router,
@@ -375,7 +375,10 @@ export class MapIndexComponent implements OnInit {
     this.router.navigate(['/cheatShow'], navigationExtras);
   }
 
-  rad(x) {return x * Math.PI / 180;}
+  rad(x) {
+    return x * Math.PI / 180;
+  }
+
   find_closest_marker(latLng) {
     const lat = latLng.lat;
     const lng = latLng.lng;
@@ -404,17 +407,17 @@ export class MapIndexComponent implements OnInit {
   initAutocomplete() {
     this.map = new google.maps.Map(document.getElementById('map'), {
       // center: new google.maps.LatLng(40.730610, -73.935242),
-      zoom: 13,
+      zoom: 18,
       mapTypeId: 'roadmap'
     });
 
     const _this = this;
-    google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
-      // do something only the first time the map is loaded
-      _this.showMap = true;
-      console.log('gatsby');
-      _this.ref.detectChanges();
-    });
+//        google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
+//          // do something only the first time the map is loaded
+//          _this.showMap = true;
+//          console.log('gatsby');
+//          _this.ref.detectChanges();
+//        });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -518,7 +521,9 @@ export class MapIndexComponent implements OnInit {
     this.map.setCenter(this.polyline.getPath().getAt(0));
     // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
     const _this = this;
-    setTimeout(function() {_this.animate(50);}, 1000);  // Allow time for the initial map display
+    setTimeout(() => {
+      _this.animate(50);
+    }, 1000);  // Allow time for the initial map display
   }
 
   animate(d) {
@@ -532,7 +537,9 @@ export class MapIndexComponent implements OnInit {
     this.mark.setPosition(p);
     // updatePoly(d);
 
-    setTimeout(() => {this.animate(d + 50);}, 100);
+    setTimeout(() => {
+      this.animate(d + 50);
+    }, 100);
   }
 
   updatePoly(d) {
