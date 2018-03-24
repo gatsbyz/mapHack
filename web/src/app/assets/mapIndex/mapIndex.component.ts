@@ -47,7 +47,7 @@ export class MapIndexComponent implements OnInit {
   hackTime = 0;
   hackDist = 0;
 
-  showMap = true;
+  showMap = false;
 
   constructor(private cheatService: CheatService,
     private router: Router,
@@ -406,18 +406,18 @@ export class MapIndexComponent implements OnInit {
 
   initAutocomplete() {
     this.map = new google.maps.Map(document.getElementById('map'), {
-      // center: new google.maps.LatLng(40.730610, -73.935242),
+      center: new google.maps.LatLng(40.730610, -73.935242),
       zoom: 18,
       mapTypeId: 'roadmap'
     });
 
     const _this = this;
-//        google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
-//          // do something only the first time the map is loaded
-//          _this.showMap = true;
-//          console.log('gatsby');
-//          _this.ref.detectChanges();
-//        });
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
+      // do something only the first time the map is loaded
+      _this.showMap = true;
+      console.log('gatsby');
+      _this.ref.detectChanges();
+    });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {

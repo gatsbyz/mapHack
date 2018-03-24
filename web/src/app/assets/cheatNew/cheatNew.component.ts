@@ -32,7 +32,7 @@ export class CheatNewComponent implements OnInit {
   routeTypeSettings: IMultiSelectSettings;
   routeTypeTexts: IMultiSelectTexts;
 
-  showMap = true;
+  showMap = false;
 
   constructor(private cheatService: CheatService,
     private router: Router,
@@ -78,12 +78,11 @@ export class CheatNewComponent implements OnInit {
 
     const _this = this;
 
-//    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-//      // do something only the first time the map is loaded
-//      _this.showMap = true;
-//      console.log('gatsby');
-//      _this.ref.detectChanges();
-//    });
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+      // do something only the first time the map is loaded
+      _this.showMap = true;
+      _this.ref.detectChanges();
+    });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
