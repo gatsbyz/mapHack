@@ -407,7 +407,7 @@ export class MapIndexComponent implements OnInit {
   initAutocomplete() {
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: new google.maps.LatLng(40.730610, -73.935242),
-      zoom: 18,
+      zoom: 13,
       mapTypeId: 'roadmap'
     });
 
@@ -415,7 +415,6 @@ export class MapIndexComponent implements OnInit {
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', function() {
       // do something only the first time the map is loaded
       _this.showMap = true;
-      console.log('gatsby');
       _this.ref.detectChanges();
     });
 
@@ -423,6 +422,7 @@ export class MapIndexComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(function(position) {
         const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         _this.map.setCenter(initialLocation);
+        console.log('d');
       });
     }
 

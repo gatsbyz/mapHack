@@ -9,7 +9,6 @@
 	max-width: 100%;
 	flex-wrap: wrap;
 	/*justify-content: flex-end;*/
-	margin: 15px;
 }
 
 #from {
@@ -22,7 +21,7 @@
 
 .form-wrap {
 	display: inline-flex;
-	margin: 0 auto;
+	margin: 0 0 15px 0;
 }
 
 .form-control {
@@ -53,10 +52,8 @@
 }
 
 .info-wrap {
-	margin: 0 0 15px 15px;
 	display: inline-flex;
 	flex-direction: column;
-	max-width: 40%;
 	flex-wrap: wrap;
 }
 

@@ -71,7 +71,7 @@ export class CheatNewComponent implements OnInit {
 
   initAutocomplete() {
     const map = new google.maps.Map(document.getElementById('map'), {
-      // center: {lat: 40.730610, lng: -73.935242},
+      center: {lat: 40.730610, lng: -73.935242},
       zoom: 13,
       mapTypeId: 'roadmap'
     });
