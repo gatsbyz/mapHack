@@ -250,7 +250,8 @@ export class MapIndexComponent implements OnInit {
         //     calculateAndDisplayRoute(directionsService, directionsDisplay);
         // });
         const selectedMode = _this.routeTypeModel[0];
-        _this.find_closest_marker(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+        _this.closestMarker = _this.find_closest_marker(
+          new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
         const directionsService = new google.maps.DirectionsService();
         _this.drawOriginalRoute(directionsService, from, to, selectedMode);
         // _this.drawCheatRoute(directionsService, from, to, selectedMode);
@@ -301,7 +302,7 @@ export class MapIndexComponent implements OnInit {
               _this.startLocation.latlng = legs[i].start_location;
               _this.startLocation.address = legs[i].start_address;
               // marker = google.maps.Marker({map:map,position: startLocation.latlng});
-              // const marker = _this.createMarker(legs[i].start_location, 'start', legs[i].start_address, 'green');
+              const marker = _this.createMarker(legs[i].start_location, 'start', legs[i].start_address);
             }
             _this.endLocation.latlng = legs[i].end_location;
             _this.endLocation.address = legs[i].end_address;
@@ -327,7 +328,7 @@ export class MapIndexComponent implements OnInit {
           //        createMarker(endLocation.latlng,'end',endLocation.address,'red');
           // map.setZoom(18);
 
-          // _this.startAnimation();
+          _this.startAnimation();
 
           // new google.maps.DirectionsRenderer({
           //     map: map,
@@ -400,7 +401,7 @@ export class MapIndexComponent implements OnInit {
       }
     }
     this.index = closest;
-    this.closestMarker = this.cheatMarkersArray[closest];
+    return this.cheatMarkersArray[closest];
   }
 
 
@@ -422,7 +423,6 @@ export class MapIndexComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(function(position) {
         const initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         _this.map.setCenter(initialLocation);
-        console.log('d');
       });
     }
 
@@ -453,6 +453,9 @@ export class MapIndexComponent implements OnInit {
     const cheatInput = document.getElementById('add-cheat');
     this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cheatInput);
 
+    const cheatData = document.getElementById('cheat-data');
+    this.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(cheatData);
+
     let markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
@@ -465,7 +468,7 @@ export class MapIndexComponent implements OnInit {
 
       // Clear out the old markers.
       markers.forEach(function(marker) {
-        // marker.setMap(_this.map);
+        marker.setMap(null);
       });
       markers = [];
 
@@ -517,6 +520,7 @@ export class MapIndexComponent implements OnInit {
   }
 
   startAnimation() {
+    console.log(this.polyline.getPath());
     this.eol = this.polyline.Distance();
     this.map.setCenter(this.polyline.getPath().getAt(0));
     // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});

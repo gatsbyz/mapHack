@@ -933,14 +933,14 @@ var IndexComponent = /** @class */ (function () {
 /***/ "./src/app/assets/mapIndex/mapIndex.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "#map {\n\theight: 600px;\n}\n/* Optional: Makes the sample page fill the window. */\n.destination-wrap {\n\tbackground-color: none;\n\tdisplay: block;\n\tmax-width: 100%;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n\t/*justify-content: flex-end;*/\n}\n#from {\n\twidth: 300px;\n}\n#to {\n\twidth: 300px;\n}\n.form-wrap {\n\tdisplay: -webkit-inline-box;\n\tdisplay: -ms-inline-flexbox;\n\tdisplay: inline-flex;\n\tmargin: 0 0 15px 0;\n}\n.form-control {\n\tdisplay: inline;\n}\n#pac-input {\n\twidth: 300px;\n\theight: 29px;\n\tmargin-top: 10px;\n}\n#add-cheat {\n\tmargin: 10px;\n}\n#get-direction {\n\tmargin-right: 4px;\n}\n.button:hover {\n\tbackground-color: gray;\n\tcolor: white;\n}\n.cheat {\n\tmargin-left: 15px;\n}\n.info-wrap {\n\tdisplay: -webkit-inline-box;\n\tdisplay: -ms-inline-flexbox;\n\tdisplay: inline-flex;\n\t-webkit-box-orient: vertical;\n\t-webkit-box-direction: normal;\n\t    -ms-flex-direction: column;\n\t        flex-direction: column;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n}\n.path {\n\theight: 29px;\n\tmargin-right: 4px;\n\tmargin-left: 4px;\n}\n#add-cheat .feather {\n  margin-right: 8px;\n  color: #999;\n}\n.map-button {\n\tmargin: 10px;\n}"
+module.exports = "#map {\n\theight: 600px;\n}\n/* Optional: Makes the sample page fill the window. */\n.destination-wrap {\n\tbackground-color: none;\n\tdisplay: block;\n\tmax-width: 100%;\n\t-ms-flex-wrap: wrap;\n\t    flex-wrap: wrap;\n\t/*justify-content: flex-end;*/\n}\n#from {\n\twidth: 300px;\n}\n#to {\n\twidth: 300px;\n}\n.form-wrap {\n\tdisplay: -webkit-inline-box;\n\tdisplay: -ms-inline-flexbox;\n\tdisplay: inline-flex;\n\tmargin: 0 0 15px 0;\n}\n.form-control {\n\tdisplay: inline;\n}\n#pac-input {\n\twidth: 300px;\n\theight: 29px;\n\tmargin-top: 10px;\n}\n#add-cheat {\n\tmargin: 10px;\n}\n#get-direction {\n\tmargin-right: 4px;\n}\n.button:hover {\n\tbackground-color: gray;\n\tcolor: white;\n}\n.cheat {\n\tmargin-left: 15px;\n}\n.path {\n\theight: 29px;\n\tmargin-right: 4px;\n\tmargin-left: 4px;\n}\n#add-cheat .feather {\n  margin-right: 8px;\n  color: #999;\n}\n.map-button {\n\tmargin: 10px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/assets/mapIndex/mapIndex.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div [(hidden)]=\"!showMap\">\n\t<input id=\"pac-input\" class=\"form-control\" type=\"text\"\n\t\tplaceholder=\"Search Box\">\n\n\t<form novalidate [formGroup]=\"directionForm\"\n\t\t(ngSubmit)=\"submitData(directionForm)\">\n\n\t\t<div class=\"destination-wrap\">\n\n\t\t\t<div class=\"form-wrap\">\n\t\t\t\t<!--<label class=\"labels\" for=\"from\">From:</label>-->\n\t\t\t\t<input class=\"form-control\" type=\"text\" id=\"from\"\n\t\t\t\t\tformControlName=\"from\" required=\"required\" placeholder=\"From\"\n\t\t\t\t\tsize=\"30\"\n\t\t\t\t\t[ngClass]=\"{'is-invalid': directionForm.controls.from.invalid && (directionForm.controls.from.dirty || directionForm.controls.from.touched),\n\t\t\t\t\t\t\t'is-valid': directionForm.controls.from.valid && (directionForm.controls.from.dirty || directionForm.controls.from.touched) }\">\n\t\t\t\t<button id=\"from-link\" class=\"btn btn-light\">\n\t\t\t\t\t<i class=\"fa fa-location-arrow fa-lg feather\" aria-hidden=\"true\"></i>\n\t\t\t\t</button>\n\t\t\t\t<img class=\"path\" src=\"http://i.imgur.com/NhQ6NQu.png\"> <input\n\t\t\t\t\tclass=\"form-control\" type=\"text\" id=\"to\" formControlName=\"to\"\n\t\t\t\t\trequired=\"required\" placeholder=\"To\" size=\"30\"\n\t\t\t\t\t[ngClass]=\"{'is-invalid': directionForm.controls.to.invalid && (directionForm.controls.to.dirty || directionForm.controls.to.touched),\n\t\t\t\t\t\t\t'is-valid': directionForm.controls.to.valid && (directionForm.controls.to.dirty || directionForm.controls.to.touched) }\">\n\t\t\t\t<button id=\"to-link\" class=\"btn btn-light\">\n\t\t\t\t\t<i class=\"fa fa-location-arrow fa-lg feather\" aria-hidden=\"true\"></i>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"form-wrap\">\n\t\t\t\t<ss-multiselect-dropdown [options]=\"routeTypeData\"\n\t\t\t\t\t[texts]=\"routeTypeTexts\" [settings]=\"routeTypeSettings\"\n\t\t\t\t\t[(ngModel)]=\"routeTypeModel\" formControlName=\"routeType\">\n\t\t\t\t</ss-multiselect-dropdown>\n\t\t\t\t<input id=\"get-direction\" class=\"btn btn-light\" type=\"submit\" value=\"Get Direction\" />\n\t\t\t\t<input class=\"btn btn-light\" type=\"reset\" value=\"Reset\" />\n\t\t\t</div>\n\t\t\t<div class=\"info-wrap float-right\">\n\t\t\t\t<div class=\"info-data\">\n\t\t\t\t\tOriginal Travel:&nbsp;<span id=\"origTime\"></span>&nbsp;(<span id=\"origDist\"></span>)\n\t\t\t\t</div>\n\t\t\t\t<div class=\"info-data\">\n\t\t\t\t\tHacked Travel:&nbsp;<span id=\"hackTime\"></span>&nbsp;(<span id=\"hackDist\"></span>)\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t</form>\n\n\t<button routerLink=\"/cheatNew\" id=\"add-cheat\"\n\t\tclass=\"btn btn-light map-button\">\n\t\t<i class=\"fa fa-plus fa-lg feather\" aria-hidden=\"true\"></i>Add A Cheat\n\t</button>\n</div>\n\n<div id=\"map\"></div>"
+module.exports = "<div [(hidden)]=\"!showMap\">\n\t<input id=\"pac-input\" class=\"form-control\" type=\"text\"\n\t\tplaceholder=\"Search Box\">\n\n\t<form novalidate [formGroup]=\"directionForm\"\n\t\t(ngSubmit)=\"submitData(directionForm)\">\n\n\t\t<div class=\"destination-wrap\">\n\n\t\t\t<div class=\"form-wrap\">\n\t\t\t\t<!--<label class=\"labels\" for=\"from\">From:</label>-->\n\t\t\t\t<input class=\"form-control\" type=\"text\" id=\"from\"\n\t\t\t\t\tformControlName=\"from\" required=\"required\" placeholder=\"From\"\n\t\t\t\t\tsize=\"30\"\n\t\t\t\t\t[ngClass]=\"{'is-invalid': directionForm.controls.from.invalid && (directionForm.controls.from.dirty || directionForm.controls.from.touched),\n\t\t\t\t\t\t\t'is-valid': directionForm.controls.from.valid && (directionForm.controls.from.dirty || directionForm.controls.from.touched) }\">\n\t\t\t\t<button id=\"from-link\" class=\"btn btn-light\">\n\t\t\t\t\t<i class=\"fa fa-location-arrow fa-lg feather\" aria-hidden=\"true\"></i>\n\t\t\t\t</button>\n\t\t\t\t<img class=\"path\" src=\"http://i.imgur.com/NhQ6NQu.png\"> <input\n\t\t\t\t\tclass=\"form-control\" type=\"text\" id=\"to\" formControlName=\"to\"\n\t\t\t\t\trequired=\"required\" placeholder=\"To\" size=\"30\"\n\t\t\t\t\t[ngClass]=\"{'is-invalid': directionForm.controls.to.invalid && (directionForm.controls.to.dirty || directionForm.controls.to.touched),\n\t\t\t\t\t\t\t'is-valid': directionForm.controls.to.valid && (directionForm.controls.to.dirty || directionForm.controls.to.touched) }\">\n\t\t\t\t<button id=\"to-link\" class=\"btn btn-light\">\n\t\t\t\t\t<i class=\"fa fa-location-arrow fa-lg feather\" aria-hidden=\"true\"></i>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t\t<div class=\"form-wrap\">\n\t\t\t\t<ss-multiselect-dropdown [options]=\"routeTypeData\"\n\t\t\t\t\t[texts]=\"routeTypeTexts\" [settings]=\"routeTypeSettings\"\n\t\t\t\t\t[(ngModel)]=\"routeTypeModel\" formControlName=\"routeType\">\n\t\t\t\t</ss-multiselect-dropdown>\n\t\t\t\t<input id=\"get-direction\" class=\"btn btn-light\" type=\"submit\"\n\t\t\t\t\tvalue=\"Get Direction\" /> <input class=\"btn btn-light\" type=\"reset\"\n\t\t\t\t\tvalue=\"Reset\" />\n\t\t\t</div>\n\n\t\t</div>\n\n\t</form>\n\t<div id=\"cheat-data\">\n\t\t<div class=\"info-data\">\n\t\t\tOriginal Travel:&nbsp;<span id=\"origTime\"></span>&nbsp;(<span\n\t\t\t\tid=\"origDist\"></span>)\n\t\t</div>\n\t\t<div class=\"info-data\">\n\t\t\tHacked Travel:&nbsp;<span id=\"hackTime\"></span>&nbsp;(<span\n\t\t\t\tid=\"hackDist\"></span>)\n\t\t</div>\n\t</div>\n\t\n\t<button routerLink=\"/cheatNew\" id=\"add-cheat\"\n\t\tclass=\"btn btn-light map-button\">\n\t\t<i class=\"fa fa-plus fa-lg feather\" aria-hidden=\"true\"></i>Add A Cheat\n\t</button>\n</div>\n\n<div id=\"map\"></div>"
 
 /***/ }),
 
@@ -1162,7 +1162,7 @@ var MapIndexComponent = /** @class */ (function () {
                 //     calculateAndDisplayRoute(directionsService, directionsDisplay);
                 // });
                 var selectedMode = _this.routeTypeModel[0];
-                _this.find_closest_marker(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
+                _this.closestMarker = _this.find_closest_marker(new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng()));
                 var directionsService = new google.maps.DirectionsService();
                 _this.drawOriginalRoute(directionsService, from, to, selectedMode);
                 // _this.drawCheatRoute(directionsService, from, to, selectedMode);
@@ -1208,7 +1208,7 @@ var MapIndexComponent = /** @class */ (function () {
                         _this.startLocation.latlng = legs[i].start_location;
                         _this.startLocation.address = legs[i].start_address;
                         // marker = google.maps.Marker({map:map,position: startLocation.latlng});
-                        // const marker = _this.createMarker(legs[i].start_location, 'start', legs[i].start_address, 'green');
+                        var marker = _this.createMarker(legs[i].start_location, 'start', legs[i].start_address);
                     }
                     _this.endLocation.latlng = legs[i].end_location;
                     _this.endLocation.address = legs[i].end_address;
@@ -1231,7 +1231,7 @@ var MapIndexComponent = /** @class */ (function () {
                 console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')');
                 //        createMarker(endLocation.latlng,'end',endLocation.address,'red');
                 // map.setZoom(18);
-                // _this.startAnimation();
+                _this.startAnimation();
                 // new google.maps.DirectionsRenderer({
                 //     map: map,
                 //     directions: response
@@ -1296,7 +1296,7 @@ var MapIndexComponent = /** @class */ (function () {
             }
         }
         this.index = closest;
-        this.closestMarker = this.cheatMarkersArray[closest];
+        return this.cheatMarkersArray[closest];
     };
     MapIndexComponent.prototype.initAutocomplete = function () {
         this.map = new google.maps.Map(document.getElementById('map'), {
@@ -1314,7 +1314,6 @@ var MapIndexComponent = /** @class */ (function () {
             navigator.geolocation.getCurrentPosition(function (position) {
                 var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 _this.map.setCenter(initialLocation);
-                console.log('d');
             });
         }
         // Create the search box and link it to the UI element.
@@ -1337,6 +1336,8 @@ var MapIndexComponent = /** @class */ (function () {
         });
         var cheatInput = document.getElementById('add-cheat');
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(cheatInput);
+        var cheatData = document.getElementById('cheat-data');
+        this.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(cheatData);
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
@@ -1347,7 +1348,7 @@ var MapIndexComponent = /** @class */ (function () {
             }
             // Clear out the old markers.
             markers.forEach(function (marker) {
-                // marker.setMap(_this.map);
+                marker.setMap(null);
             });
             markers = [];
             // For each place, get the icon, name and location.
@@ -1392,6 +1393,7 @@ var MapIndexComponent = /** @class */ (function () {
         return this.mark;
     };
     MapIndexComponent.prototype.startAnimation = function () {
+        console.log(this.polyline.getPath());
         this.eol = this.polyline.Distance();
         this.map.setCenter(this.polyline.getPath().getAt(0));
         // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
