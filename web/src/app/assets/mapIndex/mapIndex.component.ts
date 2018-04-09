@@ -15,6 +15,8 @@ declare var google: any;
 
 export class MapIndexComponent implements OnInit {
 
+  STEP = 50;
+
   map: google.maps.Map = null;
 
   cheats = [];
@@ -526,7 +528,7 @@ export class MapIndexComponent implements OnInit {
     // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
     const _this = this;
     setTimeout(() => {
-      _this.animate(50);
+      _this.animate(_this.STEP);
     }, 1000);  // Allow time for the initial map display
   }
 
@@ -542,7 +544,7 @@ export class MapIndexComponent implements OnInit {
     // updatePoly(d);
 
     setTimeout(() => {
-      this.animate(d + 50);
+      this.animate(d + this.STEP);
     }, 100);
   }
 

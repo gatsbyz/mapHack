@@ -975,6 +975,7 @@ var MapIndexComponent = /** @class */ (function () {
         this.router = router;
         this.formbuilder = formbuilder;
         this.ref = ref;
+        this.STEP = 50;
         this.map = null;
         this.cheats = [];
         this.currentUser = {};
@@ -1399,7 +1400,7 @@ var MapIndexComponent = /** @class */ (function () {
         // poly2 = new google.maps.Polyline({path: [polyline.getPath().getAt(0)], strokeColor:'#0000FF', strokeWeight:3});
         var _this = this;
         setTimeout(function () {
-            _this.animate(50);
+            _this.animate(_this.STEP);
         }, 1000); // Allow time for the initial map display
     };
     MapIndexComponent.prototype.animate = function (d) {
@@ -1414,7 +1415,7 @@ var MapIndexComponent = /** @class */ (function () {
         this.mark.setPosition(p);
         // updatePoly(d);
         setTimeout(function () {
-            _this.animate(d + 50);
+            _this.animate(d + _this.STEP);
         }, 100);
     };
     MapIndexComponent.prototype.updatePoly = function (d) {
