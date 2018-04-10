@@ -327,7 +327,7 @@ export class MapIndexComponent implements OnInit {
           _this.origDist = point.distance.text;
           $('#origDist').html(point.distance.text);
           console.log('Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')');
-          //        createMarker(endLocation.latlng,'end',endLocation.address,'red');
+          // createMarker(endLocation.latlng,'end',endLocation.address,'red');
           // map.setZoom(18);
 
           _this.startAnimation();
